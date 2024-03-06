@@ -2,8 +2,8 @@
     <app-common-header [title]="DashBoard"></app-common-header>
     <mat-divider></mat-divider>
     <br>
-        <div fxLayout="row" fxLayoutAlign="space-around center" >
-            <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center">
+        <div fxLayout="row" fxLayoutAlign="space-around" fxLayout.lt-md="column" >
+            <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center" fxFlex="25">
                 <mat-card-header>
                     <mat-card-title>Completed Tasks</mat-card-title>
                     <mat-card-subtitle>
@@ -17,7 +17,7 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-            <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center">
+            <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center"  fxFlex="25">
                 <mat-card-header>
                     <mat-card-title>Today Tasks</mat-card-title>
                     <mat-card-subtitle>
@@ -31,7 +31,7 @@
                     </div>
                 </mat-card-content>
             </mat-card>
-            <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center">
+            <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center"  fxFlex="25">
                 <mat-card-header>
                     <mat-card-title>Special Tasks</mat-card-title>
                     <mat-card-subtitle>

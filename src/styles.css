@@ -9,6 +9,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 ::-webkit-scrollbar {
     width: 5px;
+        border: 25%;
 }
 
 ::-webkit-scrollbar-track {

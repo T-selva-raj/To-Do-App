@@ -16,10 +16,18 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { DashBoardDetailsComponent } from './dash-board-details/dash-board-details.component';
 import { CommonHeaderComponent } from './common-header/common-header.component';
-
+import {ZenFlexLayoutModule}from"zen-flex-layout";
+import { ProfileComponent } from './profile/profile.component';
+import { AddTaskComponent } from './add-task/add-task.component';
+import { AllTasksComponent } from './all-tasks/all-tasks.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ReportComponent } from './report/report.component';
+import { Chart } from 'chart.js';
+import { registerables } from 'chart.js';
+import { ChartComponent } from './chart/chart.component';
+Chart.register(...registerables);
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +35,13 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
     SignupPageComponent,
     DashBoardComponent,
     DashBoardDetailsComponent,
-    CommonHeaderComponent
+    CommonHeaderComponent,
+    ProfileComponent,
+    AddTaskComponent,
+    AllTasksComponent,
+    ContactUsComponent,
+    ReportComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +56,7 @@ import { CommonHeaderComponent } from './common-header/common-header.component';
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule
+    ZenFlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
