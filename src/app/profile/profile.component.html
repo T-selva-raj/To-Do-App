@@ -1,10 +1,15 @@
 <div fxFill>
     <app-common-header title="Profile"></app-common-header>
     <br>
-    <div fxLayout="row" fxLayoutAlign="center center" style="background-color: aqua;">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-md="column"
+        fxLayoutAlign.lt-md="space-between stretch">
         <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
-            <img src="../../assets/Contact us.gif" alt="contact-us" width="70%" height="70%">
-            <div>
+            <div fxLayout="column" fxLayoutAlign="center center" class="profile">
+                <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                    alt="contact-us" width="70%" height="70%" class="box">
+                <h1>Selvaraj T</h1>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" class="social box">
                 <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
                     <mat-icon>home</mat-icon>
                 </button>
@@ -20,14 +25,14 @@
             <form fxLayout="column" fxLayoutAlign="center center" style="padding: 16px;">
                 <mat-form-field style="width: 100%;" appearance="outline">
                     <mat-label>Email</mat-label>
-                    <input matInput type="email" placeholder="Enter your email" readonly>
+                    <input matInput type="email" readonly>
                 </mat-form-field>
                 <mat-form-field style="width: 100%;" appearance="outline">
-                    <mat-label>Comments</mat-label>
-                    <textarea matInput rows="4" placeholder="Enter your comments"></textarea>
+                    <mat-label>About</mat-label>
+                    <textarea matInput rows="4" readonly></textarea>
                 </mat-form-field>
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <h1>Tasks Completed : 100+</h1>
+                    <h1>Tasks Completed : <span id="counter">100+</span></h1>
                 </div>
                 <div class="button-container">
                     <button mat-raised-button color="accent">Edit</button>

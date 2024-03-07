@@ -1,0 +1,19 @@
+.profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    padding: 5px;
+    border: 1px solid #ffd740;
+    margin-bottom: 1em;
+}
+
+.social {
+    border: 1px solid #ffd740;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.social button:hover {
+    transform: scale(1.05, 1.05);
+    transition: .5s;
+}

@@ -68,31 +68,38 @@ mat-divider {
     font-weight: bolder;
 }
 
-.profile{
-    width:100%;
+.profile {
+    width: 100%;
     height: 35%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-.profile-img{
-    width:75%;
-    height:75%;
+
+.profile-img {
+    width: 75%;
+    height: 75%;
     border-radius: 50%;
     position: relative;
+    padding: 5px;
+    border: 2px solid black;
+    box-shadow: 0px 0px 5px black inset;
+    filter: blur(1);
 }
-.profile-img img{
+
+.profile-img img {
     width: 90%;
-        height:90%;
+    height: 90%;
     position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-            border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
 }
-.profile-text{
+
+.profile-text {
     width: 100%;
-    height:20%;
+    height: 20%;
     margin-top: .5em;
 }
