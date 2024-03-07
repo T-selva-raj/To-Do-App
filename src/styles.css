@@ -1,15 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
-:root{
---primary-color:#ffd740
+:root {
+    --primary-color: #ffd740
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 
 
 ::-webkit-scrollbar {
     width: 5px;
-        border: 25%;
+    border: 25%;
 }
 
 ::-webkit-scrollbar-track {
@@ -17,6 +25,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 ::-webkit-scrollbar-thumb {
-    background:var(--primary-color);
+    background: var(--primary-color);
 }
 
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
