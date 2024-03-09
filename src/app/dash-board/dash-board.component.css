@@ -83,9 +83,23 @@ mat-divider {
     border-radius: 50%;
     position: relative;
     padding: 5px;
-    border: 2px solid black;
-    box-shadow: 0px 0px 5px black inset;
+    /* border: 2px solid black; */
+    box-shadow: 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
+        2px 2px 10px -1px rgba(10, 99, 169, 0.16) inset;
+    animation: float 2s ease-in-out infinite;
     filter: blur(1);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(3px);
+    }
+
+    50% {
+        transform: translateY(-1px);
+    }
 }
 
 .profile-img img {

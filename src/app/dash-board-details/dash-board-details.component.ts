@@ -6,6 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./dash-board-details.component.css']
 })
 export class DashBoardDetailsComponent {
-DashBoard="Dashboard";
-
+  DashBoard = "Dashboard";
+  details = [
+    { title: "Completed Tasks", count: 100, img: "../../assets/tick.png" },
+    { title: "Today Tasks", count: 100, img: "../../assets/today.png" },
+    { title: "Special Tasks", count: 100, img: "https://cdn-icons-png.flaticon.com/512/4899/4899512.png" }
+  ]
 }

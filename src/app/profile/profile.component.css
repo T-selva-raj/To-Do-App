@@ -3,14 +3,18 @@
     height: 150px;
     border-radius: 50%;
     padding: 5px;
-    border: 1px solid #ffd740;
+    /* border: 1px solid #ffd740; */
+    box-shadow: 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
+        -10px -10px 10px -1px rgba(255, 255, 255, 0.7);
     margin-bottom: 1em;
 }
 
 .social {
-    border: 1px solid #ffd740;
+    /* border: 1px solid #ffd740; */
     border-radius: 10px;
     margin-bottom: 10px;
+    box-shadow: 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
+        -10px -10px 10px -1px rgba(255, 255, 255, 0.7);
 }
 
 .social button:hover {

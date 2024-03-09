@@ -2,50 +2,22 @@
     <app-common-header [title]="DashBoard"></app-common-header>
     <br>
     <div fxLayout="row" fxLayoutAlign="space-around" fxLayout.lt-md="column">
-        <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center" fxFlex="25">
+        <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center" fxFlex="25"
+            *ngFor="let t of details">
             <mat-card-header>
-                <mat-card-title>Completed Tasks</mat-card-title>
+                <mat-card-title>{{t.title}}</mat-card-title>
                 <mat-card-subtitle>
-                    <h3 style="text-align: center;">100</h3>
+                    <h3 style="text-align: center;">{{t.count}}</h3>
                 </mat-card-subtitle>
             </mat-card-header>
             <mat-divider></mat-divider>
             <mat-card-content>
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <img src="../../assets/tick.png" class="img">
-                </div>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center" fxFlex="25">
-            <mat-card-header>
-                <mat-card-title>Today Tasks</mat-card-title>
-                <mat-card-subtitle>
-                    <h3 style="text-align: center;">100</h3>
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-divider></mat-divider>
-            <mat-card-content>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <img src="../../assets/today.png" class="img">
-                </div>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center" fxFlex="25">
-            <mat-card-header>
-                <mat-card-title>Special Tasks</mat-card-title>
-                <mat-card-subtitle>
-                    <h3 style="text-align: center;">100</h3>
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-divider></mat-divider>
-            <mat-card-content>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <img src="https://cdn-icons-png.flaticon.com/512/4899/4899512.png" class="img">
+                    <img [src]='t.img' class="img">
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
-
     <br>
     <div class="dashboard">
         <h2>Advantages of Our To-Do App</h2>
@@ -72,5 +44,4 @@
         </ul>
     </div>
     <br>
-
 </div>
