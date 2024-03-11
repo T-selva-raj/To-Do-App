@@ -38,3 +38,9 @@ body {
 .box {
     box-shadow: 0px 0px 10px var(--primary-color);
 }
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

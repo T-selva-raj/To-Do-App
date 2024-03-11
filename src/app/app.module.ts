@@ -18,7 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DashBoardDetailsComponent } from './dash-board-details/dash-board-details.component';
 import { CommonHeaderComponent } from './common-header/common-header.component';
-import {ZenFlexLayoutModule}from"zen-flex-layout";
+import { ZenFlexLayoutModule } from "zen-flex-layout";
 import { ProfileComponent } from './profile/profile.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { AllTasksComponent } from './all-tasks/all-tasks.component';
@@ -27,6 +27,8 @@ import { ReportComponent } from './report/report.component';
 import { Chart } from 'chart.js';
 import { registerables } from 'chart.js';
 import { ChartComponent } from './chart/chart.component';
+import { MatMenuModule } from '@angular/material/menu';
+
 Chart.register(...registerables);
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ Chart.register(...registerables);
     MatFormFieldModule,
     MatInputModule,
     ZenFlexLayoutModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

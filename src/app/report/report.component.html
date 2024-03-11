@@ -1,12 +1,15 @@
 <div fxFill>
     <app-common-header [title]="title"></app-common-header>
-    <div fxLayout="row" fxLayoutAlign="space-around center" fxLayout.lt-md="column">
-        <div fxFlex="50" style="display: flex;justify-content: center;" >
-            <img src="../../assets/report.gif" alt="report" style="width: 75%;height: 85%;">
-        </div>
-<div fxFlex="50" style="display: flex;justify-content: center;">
-    <app-chart></app-chart>
-</div>
+    <div fxLayout="row" fxLayoutAlign="end none">
+        <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>1st Week</button>
+            <button mat-menu-item>2nd Week</button>
+            <button mat-menu-item>3rd Week</button>
+            <button mat-menu-item>4th Week</button>
+        </mat-menu>
     </div>
-    
+    <div style="height:80%">
+        <app-chart></app-chart>
+    </div>
 </div>
