@@ -6,10 +6,13 @@
             *ngFor="let t of details">
             <mat-card-header>
                 <mat-card-title>{{t.title}}</mat-card-title>
-                <mat-card-subtitle>
-                    <h3 style="text-align: center;">{{t.count}}</h3>
-                </mat-card-subtitle>
+                <br>
+                <!-- <mat-card-subtitle> -->
+                <!-- <h3 style="text-align: center;">{{t.count}}</h3> -->
+                <!-- </mat-card-subtitle> -->
             </mat-card-header>
+            <h1 style="text-align: center;">{{t.count}}</h1>
+
             <mat-divider></mat-divider>
             <mat-card-content>
                 <div fxLayout="row" fxLayoutAlign="center center">

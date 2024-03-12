@@ -16,7 +16,8 @@ const routes: Routes = [
   { path: 'add', component: AddTaskComponent },
   { path: 'all', component: AllTasksComponent },
   { path: 'report', component: ReportComponent },
-  { path: 'contactus', component: ContactUsComponent }
+  { path: 'contactus', component: ContactUsComponent },
+
 ];
 
 @NgModule({
