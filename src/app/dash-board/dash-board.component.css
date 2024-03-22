@@ -28,14 +28,14 @@ mat-sidenav-container {
     height: calc(100vh - 65px);
 }
 
+
 .menu-button {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     font-size: 1rem;
-
-
+    margin-top: .2rem;
 }
 
 mat-icon {

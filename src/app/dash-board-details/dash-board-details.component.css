@@ -27,3 +27,68 @@
         opacity: 100;
     }
 }
+
+.red {
+    background-color: rgb(156, 149, 149);
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.green {
+    background-color: green;
+}
+
+.graph-container {
+    height: 95%;
+}
+
+.time-card {
+    height: 70%;
+    margin-top: 10px;
+}
+
+.vertical-divider {
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.12);
+    height: 100%;
+    margin: 0 16px;
+}
+
+.card-details {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.card-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+}
+
+.card-img {
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+}
+
+.card-img img {
+    width: 80px;
+    height: 80px;
+}
+
+small {
+    font-size: 10px;
+}
