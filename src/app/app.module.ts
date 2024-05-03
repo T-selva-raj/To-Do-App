@@ -28,6 +28,7 @@ import { Chart } from 'chart.js';
 import { registerables } from 'chart.js';
 import { ChartComponent } from './chart/chart.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { ClockComponent } from './clock/clock.component';
 
 Chart.register(...registerables);
 @NgModule({
@@ -43,7 +44,8 @@ Chart.register(...registerables);
     AllTasksComponent,
     ContactUsComponent,
     ReportComponent,
-    ChartComponent
+    ChartComponent,
+    ClockComponent
   ],
   imports: [
     BrowserModule,

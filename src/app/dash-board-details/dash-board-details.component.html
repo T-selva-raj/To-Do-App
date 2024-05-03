@@ -1,12 +1,13 @@
-<div fxFill fxLayout="column" fxLayoutAlign="space-around stretch">
+<div fxLayout="column" fxLayoutAlign="space-around stretch" style="height:100vh;overflow-y: scroll;">
     <div fxLayout="row" fxLayoutAlign="center start">
-        <p>date time</p>
+        <app-clock></app-clock>
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100">
-        <div class="graph-container red" fxFlex="45">
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100" fxLayout.lt-md="column"
+        fxLayoutAlign.lt-md="space-around stretch">
+        <div class="graph-container red" fxFlex="45" fxFlex.lt-md="100">
 
         </div>
-        <div class=" graph-container red" fxFlex="45">
+        <div class=" graph-container red" fxFlex="45" fxHide.lt-md>
 
         </div>
     </div>
@@ -14,17 +15,39 @@
         fxLayoutAlign.lt-md="space-around stretch">
         <div fxLayout="row" fxLayoutAlign="space-between center " fxFlex="45%">
             <mat-card class="time-card" fxFlex="48%" fxLayoutGap="10px">
+                <div class="img">
 
+                </div>
+                <div class="detail">
+                </div>
             </mat-card>
             <mat-card class="time-card" fxFlex="48%">
+                <div class="img">
 
+                </div>
+                <div class="detail">
+
+                </div>
             </mat-card>
         </div>
-        <mat-card class="time-card" fxFlex="45%" fxLayout="row">
 
-        </mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="45%">
+            <mat-card class="time-card " fxFlex="100%" fxLayout="row">
+                <div *ngFor="let i of [1, 2]" fxFlex="100">
+                    <div class="img">
+
+                    </div>
+                    <div class="detail">
+
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+
     </div>
+    <br>
     <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100" class="red">
         <h1>Today important tasks</h1>
     </div>
+
 </div>

@@ -43,20 +43,15 @@
 }
 
 .graph-container {
-    height: 95%;
+    height: 200px;
 }
 
 .time-card {
-    height: 70%;
+    height: 100px;
     margin-top: 10px;
 }
 
-.vertical-divider {
-    width: 1px;
-    background-color: rgba(0, 0, 0, 0.12);
-    height: 100%;
-    margin: 0 16px;
-}
+
 
 .card-details {
     height: 100%;
@@ -91,4 +86,10 @@
 
 small {
     font-size: 10px;
+}
+
+.img {
+    width: 35%;
+    height: 100%;
+    background-color: aqua;
 }
