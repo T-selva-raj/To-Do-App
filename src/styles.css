@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Jersey+25&display=swap');
+
 :root {
-    --primary-color: #ffd740
+    --primary-color: #ffd740;
+    --clock: "Jersey 25", sans-serif;
+    --heading: "Anton", sans-serif;
 }
 
 html,
@@ -43,4 +49,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.text-center {
+    text-align: center;
 }

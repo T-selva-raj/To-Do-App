@@ -1,50 +1,59 @@
-<div fxFill>
-    <app-common-header [title]="DashBoard"></app-common-header>
-    <br>
-    <div fxLayout="row" fxLayoutAlign="space-around" fxLayout.lt-md="column">
-        <mat-card class="completed-task-card" fxLayout="column" fxLayoutAlign="center center" fxFlex="25"
-            *ngFor="let t of details">
-            <mat-card-header>
-                <mat-card-title>{{t.title}}</mat-card-title>
-                <br>
-                <!-- <mat-card-subtitle> -->
-                <!-- <h3 style="text-align: center;">{{t.count}}</h3> -->
-                <!-- </mat-card-subtitle> -->
-            </mat-card-header>
-            <h1 style="text-align: center;">{{t.count}}</h1>
-
-            <mat-divider></mat-divider>
-            <mat-card-content>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <img [src]='t.img' class="img">
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch" fxFill>
+    <div fxLayout="row" fxLayoutAlign="center start">
+        <app-clock></app-clock>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100" fxLayout.lt-md="column"
+        fxLayoutAlign.lt-md="space-around stretch">
+        <div class="graph-container" fxFlex="45" fxFlex.lt-md="100">
+            <app-chart></app-chart>
+        </div>
+        <div class=" graph-container " fxFlex="45" fxHide.lt-md fxLayout="row">
+            <div fxFlex="45" fxLayout="column" fxLayoutAlign="center center" class="today-to-do">
+                <p>To Do Today</p><br>
+                <p>2</p>
+            </div>
+            <div fxFlex="65">
+                <img src="../../assets/in-progress-animate.svg" alt="" width="100%" height="90%">
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-around stretch" fxFlex="100" fxLayout.lt-md="column"
+        fxLayoutAlign.lt-md="space-around stretch">
+        <div fxLayout="row" fxLayoutAlign="space-between center " fxFlex="45%">
+            <mat-card class="time-card" fxFlex="48%" fxLayoutGap="10px" *ngFor="let i of [1, 2]" fxLayout="row">
+                <div class="img">
+                    <img src={{Link1}} style="width: 100%;height: 100%;">
                 </div>
-            </mat-card-content>
+                <div class="detail">
+                    <p>Tasks Done Today</p>
+                    <p>{{Count_today}}</p>
+                </div>
+            </mat-card>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="45%">
+            <mat-card class="time-card " fxFlex="100%">
+                <div *ngFor="let i of [1, 2]" fxFlex="100" fxLayout="row">
+                    <div class="img">
+                        <img src={{Link1}} style="width: 100%;height: 100%;">
+                    </div>
+                    <div class="detail">
+                        <p>Tasks Done Today</p>
+                        <p>{{Count_today}}</p>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <br>
+    <!-- <div fxLayout="column" fxLayoutGap="5px">
+
+        <mat-card *ngFor="let task of tasks" fxFlex="100">
+            <div class="stared-task">
+                <h1>{{task.name}}</h1>
+                <small>{{task.description}} </small>
+            </div>
         </mat-card>
-    </div>
-    <br>
-    <div class="dashboard">
-        <h2>Advantages of Our To-Do App</h2>
-        <ul>
-            <li>User-Friendly Interface: The app provides a simple and intuitive user interface, making it easy for
-                users to
-                manage their tasks efficiently.</li>
-            <li>Task Organization: Users can organize their tasks into different categories or lists, helping them
-                prioritize and manage their time effectively.</li>
-            <li>Completion Tracking: The app allows users to mark tasks as completed, providing a sense of
-                accomplishment
-                and progress tracking.</li>
-            <li>Reminder and Notification: Users can set reminders for important tasks, ensuring they don't forget
-                important
-                deadlines or events.</li>
-            <li>Accessibility: The app can be accessed from anywhere with an internet connection, allowing users to
-                manage
-                their tasks on the go.</li>
-            <li>Collaboration: Users can share task lists with others, enabling collaboration on shared projects or
-                tasks.
-            </li>
-            <li>Feedback and Improvement: The app allows users to provide feedback, helping developers improve the app's
-                features and functionality over time.</li>
-        </ul>
-    </div>
-    <br>
+    </div> -->
+
+
 </div>

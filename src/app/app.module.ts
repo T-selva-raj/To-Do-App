@@ -28,6 +28,9 @@ import { Chart } from 'chart.js';
 import { registerables } from 'chart.js';
 import { ChartComponent } from './chart/chart.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { ClockComponent } from './clock/clock.component';
+import { MatTableModule } from '@angular/material/table';
+
 
 Chart.register(...registerables);
 @NgModule({
@@ -43,7 +46,8 @@ Chart.register(...registerables);
     AllTasksComponent,
     ContactUsComponent,
     ReportComponent,
-    ChartComponent
+    ChartComponent,
+    ClockComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ Chart.register(...registerables);
     MatFormFieldModule,
     MatInputModule,
     ZenFlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
