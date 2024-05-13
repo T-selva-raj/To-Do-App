@@ -1,53 +1,59 @@
-<div fxLayout="column" fxLayoutAlign="space-around stretch" style="height:100vh;overflow-y: scroll;">
+<div fxLayout="column" fxLayoutAlign="space-evenly stretch" fxFill>
     <div fxLayout="row" fxLayoutAlign="center start">
         <app-clock></app-clock>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100" fxLayout.lt-md="column"
         fxLayoutAlign.lt-md="space-around stretch">
-        <div class="graph-container red" fxFlex="45" fxFlex.lt-md="100">
-
+        <div class="graph-container" fxFlex="45" fxFlex.lt-md="100">
+            <app-chart></app-chart>
         </div>
-        <div class=" graph-container red" fxFlex="45" fxHide.lt-md>
-
+        <div class=" graph-container " fxFlex="45" fxHide.lt-md fxLayout="row">
+            <div fxFlex="45" fxLayout="column" fxLayoutAlign="center center" class="today-to-do">
+                <p>To Do Today</p><br>
+                <p>2</p>
+            </div>
+            <div fxFlex="65">
+                <img src="../../assets/in-progress-animate.svg" alt="" width="100%" height="90%">
+            </div>
         </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-around stretch" fxFlex="100" fxLayout.lt-md="column"
         fxLayoutAlign.lt-md="space-around stretch">
         <div fxLayout="row" fxLayoutAlign="space-between center " fxFlex="45%">
-            <mat-card class="time-card" fxFlex="48%" fxLayoutGap="10px">
+            <mat-card class="time-card" fxFlex="48%" fxLayoutGap="10px" *ngFor="let i of [1, 2]" fxLayout="row">
                 <div class="img">
-
+                    <img src={{Link1}} style="width: 100%;height: 100%;">
                 </div>
                 <div class="detail">
-                </div>
-            </mat-card>
-            <mat-card class="time-card" fxFlex="48%">
-                <div class="img">
-
-                </div>
-                <div class="detail">
-
+                    <p>Tasks Done Today</p>
+                    <p>{{Count_today}}</p>
                 </div>
             </mat-card>
         </div>
-
         <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="45%">
-            <mat-card class="time-card " fxFlex="100%" fxLayout="row">
-                <div *ngFor="let i of [1, 2]" fxFlex="100">
+            <mat-card class="time-card " fxFlex="100%">
+                <div *ngFor="let i of [1, 2]" fxFlex="100" fxLayout="row">
                     <div class="img">
-
+                        <img src={{Link1}} style="width: 100%;height: 100%;">
                     </div>
                     <div class="detail">
-
+                        <p>Tasks Done Today</p>
+                        <p>{{Count_today}}</p>
                     </div>
                 </div>
             </mat-card>
         </div>
-
     </div>
     <br>
-    <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100" class="red">
-        <h1>Today important tasks</h1>
-    </div>
+    <!-- <div fxLayout="column" fxLayoutGap="5px">
+
+        <mat-card *ngFor="let task of tasks" fxFlex="100">
+            <div class="stared-task">
+                <h1>{{task.name}}</h1>
+                <small>{{task.description}} </small>
+            </div>
+        </mat-card>
+    </div> -->
+
 
 </div>

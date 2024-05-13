@@ -1,12 +1,13 @@
-<div fxFill>
+<div fxFlexFill>
     <app-common-header title="Contact us"></app-common-header>
     <br>
     <div fxLayout="row" fxLayoutAlign="space-evenly center">
         <div fxFlex="50" fxLayout="row" fxLayoutAlign="center center" fxHide.lt-md>
             <img src="../../assets/Contact us.gif" alt="contact-us" width="70%" height="70%">
         </div>
-        <mat-card class="mat-elevation-z4" fxFlex="50" fxFlex.lt-md="70">
-            <form fxLayout="column" fxLayoutAlign="center center" style="padding: 16px;">
+        <mat-card class="mat-elevation-z4" fxFlex="50" fxFlex.lt-md="90">
+            <form fxLayout="column" fxLayoutAlign="center center" fxLayout.lt-md="center stretch"
+                style="padding: 16px;">
                 <mat-form-field style="width: 100%;" appearance="outline">
                     <mat-label>Name</mat-label>
                     <input matInput type="text" placeholder="Enter your name" required>
