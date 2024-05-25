@@ -13,7 +13,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { DashBoardComponent } from './dash-board/dash-board.component';
 import { MatCardModule } from '@angular/material/card';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DashBoardDetailsComponent } from './dash-board-details/dash-board-details.component';
@@ -30,8 +30,15 @@ import { ChartComponent } from './chart/chart.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ClockComponent } from './clock/clock.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
+
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireModule } from "@angular/fire/compat";
+import { environment } from "../enviorment";
+import { SharedModule } from './shared/shared.module';
 Chart.register(...registerables);
 @NgModule({
   declarations: [
@@ -64,7 +71,13 @@ Chart.register(...registerables);
     MatInputModule,
     ZenFlexLayoutModule,
     MatMenuModule,
-    MatTableModule
+    MatTableModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

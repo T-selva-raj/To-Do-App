@@ -1,1 +1,53 @@
-<p>signup-page works!</p>
+<div fxFill>
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-around center" fxLayout.lt-md="column"
+        fxLayoutAlign.lt-md="space-around" style="padding: 20px;">
+        <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50" fxHide.lt-md>
+            <img src="../../assets/To do list.gif" alt="image" width="70%" height="70%">
+        </div>
+        <div fxLayout="column" fxFlex="30" fxFlexOrder.lt-md="1" fxFlex.lt-md="60">
+            <mat-card class="singup-card" fxLayout="column" fxLayoutAlign="center stretch">
+                <mat-toolbar color="accent">Signup</mat-toolbar>
+                <form [formGroup]="signupForm" (ngSubmit)="onSignup()" fxLayout="column" fxLayoutGap="10px"
+                    style="padding: 20px;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>User Name</mat-label>
+                        <input matInput formControlName="username" type="text" required>
+                        <mat-error *ngIf="signupForm.get('username')?.hasError('required')">
+                            Username is required..!
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" type="text" required>
+                        <mat-error *ngIf="signupForm.get('email')?.hasError('required')">
+                            Email is required..!
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput formControlName="password" type="password" required>
+                        <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
+                            Password is required..!
+                        </mat-error>
+                        <mat-error *ngIf="signupForm.get('password')?.hasError('pattern')">
+                            Atleast one number and charecter required..!
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Repeat Password</mat-label>
+                        <input matInput formControlName="repeatPassword" type="password" required>
+                        <mat-error *ngIf="signupForm.get('repeatPassword')?.hasError('required')">
+                            Repeat Password..!
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-error *ngIf="signupForm.hasError('passwordMismatch')">
+                        Password Missmatch..!
+                    </mat-error>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button color="accent">Signup</button>
+                    </div>
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</div>

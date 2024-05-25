@@ -1,5 +1,20 @@
 
-export const environment = {
+
+interface env {
+    production: boolean,
+    firebase: fire_base
+}
+interface fire_base {
+    apiKey: string
+    authDomain: string,
+    databaseURL: string,
+    projectId: string,
+    storageBucket: string,
+    messagingSenderId: string,
+    appId: string,
+    measurementId: string
+}
+export const environment: env = {
     production: false,
     firebase: {
         apiKey: "AIzaSyCS2-JecXYtqfRmOmvIL-q-kFh2VD86kyQ",
@@ -12,4 +27,3 @@ export const environment = {
         measurementId: "G-NVKDSPNXPK"
     }
 }
-
