@@ -1,29 +1,30 @@
-<div fxFill >
-<div fxFlex="100" fxLayout="row" fxLayoutAlign="space-around center" fxLayout.lt-md="column">
+<div fxFill>
+    <div fxFlex="100" fxLayout="row" fxLayoutAlign="space-around center" fxLayout.lt-md="column"
+        fxLayoutAlign.lt-md="center center" style="padding: 10px;">
         <div fxLayout="column" fxLayoutAlign="center center" fxFlex="50" fxHide.lt-md>
-          <img src="../../assets/To do list.gif" alt="image" width="70%" height="70%">
+            <img src="../../assets/To do list.gif" alt="image" width="70%" height="70%">
         </div>
-        <div  fxLayout="column"  fxFlex="30" style="background-color: antiquewhite;" fxFlexOrder.lt-md="1">
-            <div >
-                <mat-card class="login-card" fxLayout="column" fxLayoutAlign="center stretch">
-                    <mat-toolbar color="accent">Login</mat-toolbar>
-                    <form fxLayout="column" fxLayoutGap="10px" style="padding: 20px;">
-                        <mat-form-field>
-                            <mat-label>Username</mat-label>
-                            <input matInput  type="text" required >
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Password</mat-label>
-                            <input matInput  type="password" required >
-                        </mat-form-field>
-                        <div fxLayout="row" fxLayoutAlign="space-between">
-                            <button mat-raised-button color="accent">Login</button>
-                            <button mat-raised-button color="accent">Clear</button>
-                        </div>
-                    </form>
-                </mat-card>
-            </div>
+        <div fxLayout="column" fxFlex="30" fxFlex.lt-md="50">
+            <mat-card class="login-card" fxLayout="column">
+                <mat-toolbar color="accent">Login</mat-toolbar>
+                <form fxLayout="column" fxLayoutGap="10px" style="padding: 20px;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" required>
+                    </mat-form-field>
+                    <div fxLayout="row" fxLayoutAlign="center start">
+                        <button mat-raised-button color="accent">Login</button>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="space-around">
+                        <a mat-button routerLink="/register">Sing up here</a>
+                        <a mat-button href="https://www.google.com/" target="_blank">Forgot password</a>
+                    </div>
+                </form>
+            </mat-card>
         </div>
-
     </div>
 </div>
