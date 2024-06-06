@@ -7,14 +7,22 @@
         <div fxLayout="column" fxFlex="30" fxFlex.lt-md="50">
             <mat-card class="login-card" fxLayout="column">
                 <mat-toolbar color="accent">Login</mat-toolbar>
-                <form fxLayout="column" fxLayoutGap="10px" style="padding: 20px;">
+                <form fxLayout="column" fxLayoutGap="10px" style="padding: 20px;" [formGroup]="loginForm"
+                    (ngSubmit)="OnSignIn()">
                     <mat-form-field appearance="outline">
                         <mat-label>Email</mat-label>
-                        <input matInput type="email" required>
+                        <input matInput type="email" required formControlName="email">
+                        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is
+                            required</mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Password</mat-label>
-                        <input matInput type="password" required>
+                        <input matInput type="password" required formControlName="password">
+                        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is
+                            required</mat-error>
+                        <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
+                            Atleast one number and charecter required..!
+                        </mat-error>
                     </mat-form-field>
                     <div fxLayout="row" fxLayoutAlign="center start">
                         <button mat-raised-button color="accent">Login</button>

@@ -10,13 +10,15 @@ import { ReportComponent } from './report/report.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { DashBoardComponent } from './dash-board/dash-board.component';
 import { DashBoardDetailsComponent } from './dash-board-details/dash-board-details.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: SignupPageComponent },
   {
-    path: 'app', component: DashBoardComponent, children: [
+    path: 'app', component: DashBoardComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard],
+    children: [
       { path: 'dashboard', component: DashBoardDetailsComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'add', component: AddTaskComponent },

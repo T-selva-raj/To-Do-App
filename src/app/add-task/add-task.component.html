@@ -1,1 +1,37 @@
-<p>add-task works!</p>
+<app-common-header title="Add Task"></app-common-header>
+<div fxLayout="row" fxLayoutAlign="space-around center">
+    <div fxFlex="50%" style="display: flex;align-items: center;justify-content: center;" fxHide.lt-md>
+        <img src="../../assets/Add tasks.gif" alt="img">
+    </div>
+    <div class="add-task-container" fxFlex="50%" fxFlex.lt-md="85%">
+        <form [formGroup]="taskform">
+            <mat-form-field appearance="outline">
+                <mat-label>Task Title</mat-label>
+                <input matInput placeholder="Enter task title" required formControlName="taskName">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Task Description</mat-label>
+                <textarea matInput placeholder="Enter task description" required
+                    formControlName="description"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Due Date</mat-label>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a due date" required
+                    formControlName="dueDate" [matDatepickerFilter]="dateFilter">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Priority</mat-label>
+                <mat-select formControlName="importance">
+                    <mat-option *ngFor="let p of priority" [value]="p">{{ p }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="form-actions" fxLayout="row" fxLayoutAlign="space-around center">
+                <button mat-stroked-button color="warn">cancel</button>
+                <button mat-raised-button color="primary" type="submit">Add Task</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -9,6 +9,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 export class DashBoardComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
+  title = "sample"
 
   constructor(private observer: BreakpointObserver) { }
 
