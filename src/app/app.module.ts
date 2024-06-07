@@ -34,6 +34,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 
@@ -42,6 +43,7 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { environment } from "../enviorment";
 import { SharedModule } from './shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
+import { LoaderComponent } from './loader/loader.component';
 Chart.register(...registerables);
 @NgModule({
   declarations: [
@@ -57,7 +59,8 @@ Chart.register(...registerables);
     ContactUsComponent,
     ReportComponent,
     ChartComponent,
-    ClockComponent
+    ClockComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +84,7 @@ Chart.register(...registerables);
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatProgressBarModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     SharedModule

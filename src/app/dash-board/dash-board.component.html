@@ -1,10 +1,16 @@
 <div fxFill>
-    <mat-toolbar class="mat-elevation-z8" color="accent">
-        <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
-            <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-            <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
-        </button>
-        <span style="font-weight: bold;">{{title}}</span>
+    <mat-toolbar class="mat-elevation-z8" color="accent" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+                <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+                <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+            </button>
+            <span style="font-weight: bold;">{{title}}</span>
+        </div>
+        <div>
+            <button mat-icon-button (click)="logout()"><i class="bi bi-power"
+                    style="font-weight:450 !important ;color: black;"></i></button>
+        </div>
     </mat-toolbar>
 
     <mat-sidenav-container>

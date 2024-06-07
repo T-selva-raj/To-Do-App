@@ -25,7 +25,7 @@ export class AuthService {
   signIn(email: string, password: string) {
     return from(this.fireAuth.signInWithEmailAndPassword(email, password)).pipe(
       catchError((error) => {
-        return EMPTY;
+        return throwError(error);
       })
     )
   }

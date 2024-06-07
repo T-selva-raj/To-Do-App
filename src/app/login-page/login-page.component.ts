@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class LoginPageComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   subscriptionObj: Subscription = new Subscription();
+  isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -31,15 +32,18 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   OnSignIn() {
     const formData = this.loginForm.value;
     if (this.loginForm.valid) {
+      this.isLoading = true;
       this.subscriptionObj.add(
         this.auth.signIn(formData.email, formData.password).subscribe(
           (res: any) => {
             console.log("res", res.user);
+            this.isLoading = false;
             localStorage.setItem("uuid", res?.user?.uid);
-            this.snackbar.openSnackBar({ message: "Logged Successfully..!", snacktype: SnackType.Success });
+            this.snackbar.openSnackBar({ message: "Logged In Successfully..!", snacktype: SnackType.Success });
             this.router.navigate(['app/dashboard']);
           },
           (error) => {
+            this.isLoading = false;
             let errorMessage: string;
             switch (error.code) {
               case 'auth/user-not-found':
@@ -50,6 +54,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
                 break;
               case 'auth/invalid-email':
                 errorMessage = 'Invalid email address.';
+                break;
+              case 'auth/invalid-credential':
+                errorMessage = 'Invalid credentials';
+                break;
+              case 'auth/too-many-requests':
+                errorMessage = 'Too many requests';
                 break;
               default:
                 errorMessage = 'Internal server error.';
@@ -62,6 +72,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.isLoading = false;
     this.subscriptionObj.unsubscribe();
   }
 }
