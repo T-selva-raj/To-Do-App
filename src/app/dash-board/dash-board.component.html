@@ -12,7 +12,7 @@
                     style="font-weight:450 !important ;color: black;"></i></button>
         </div>
     </mat-toolbar>
-
+    <app-loader *ngIf="isLoader"></app-loader>
     <mat-sidenav-container>
         <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
             <div class="profile">

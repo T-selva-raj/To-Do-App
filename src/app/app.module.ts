@@ -35,6 +35,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -85,6 +86,7 @@ Chart.register(...registerables);
     MatNativeDateModule,
     MatSelectModule,
     MatProgressBarModule,
+    MatDialogModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     SharedModule
