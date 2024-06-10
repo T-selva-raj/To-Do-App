@@ -7,8 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy:dev": "ng build --configuration=development && firebase deploy --only hosting:dev",
-    "deploy:prod": "ng build --configuration=production && firebase deploy --only hosting:prod"
+    "build:dev": "ng build --configuration=development",
+    "build:prod": "ng build --configuration=production",
+    "deploy:dev": "firebase use test-app-d051b && firebase target:apply hosting dev test-app-d051b && npm run build:dev && firebase deploy --only hosting:dev",
+    "deploy:prod": "firebase use todo-dev-f5aaa && firebase target:apply hosting prod todo-dev-f5aaa && npm run build:prod && firebase deploy --only hosting:prod"
   },
   "private": true,
   "dependencies": {
