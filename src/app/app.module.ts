@@ -41,7 +41,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireModule } from "@angular/fire/compat";
-import { environment } from "../enviorment";
+import { environment } from "../environments/enviorment";
 import { SharedModule } from './shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { LoaderComponent } from './loader/loader.component';
