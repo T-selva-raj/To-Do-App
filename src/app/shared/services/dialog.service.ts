@@ -13,7 +13,7 @@ export class DialogService {
   openDialog(data: any) {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: data,
-      width: '250px',
+      width: '350px',
       enterAnimationDuration: '300ms',
       exitAnimationDuration: '100ms',
       disableClose: true,

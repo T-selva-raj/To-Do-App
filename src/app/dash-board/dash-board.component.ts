@@ -6,7 +6,7 @@ import { DialogService } from '../shared/services/dialog.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../shared/components/dialog/dialog.component';
 import { Subscription } from 'rxjs';
-
+import { MESSAGES } from '../shared/constants/messages';
 @Component({
   selector: 'app-dash-board',
   templateUrl: './dash-board.component.html',
@@ -44,7 +44,7 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy {
   logout() {
     this.dialogRef = this.dialogService.openDialog({
       title: "Alert",
-      message: "Do you want to log out?"
+      message: MESSAGES.LOGOUT_CONFIRMATION
     });
     this.subscriptionObj.add(this.dialogRef.afterClosed().subscribe((res: any) => {
       if (res) {

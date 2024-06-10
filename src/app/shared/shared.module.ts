@@ -6,6 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 
@@ -19,7 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatIconModule,
     FlexLayoutModule,
     MatDialogModule,
-    MatButtonModule
+    MatDividerModule,
+    MatButtonModule,
+    MatToolbarModule
   ],
   exports: [
     SnackbarComponent

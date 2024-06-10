@@ -1,8 +1,11 @@
-<h1 mat-dialog-title>{{ data.title }} &nbsp;&nbsp;<i class="bi bi-exclamation-triangle" style="color:#ffd740;"></i></h1>
-<div mat-dialog-content>
-    <p>{{ data.message }}</p>
-</div>
-<div mat-dialog-actions align="end">
-    <button mat-stroked-button (click)="onClose()">No</button>
-    <button mat-raised-button color="primary" cdkFocusInitial (click)="onClickYes()">Yes</button>
+<mat-toolbar mat-dialog-title>{{ data.title }} &nbsp;&nbsp;<i class="bi bi-exclamation-triangle"
+        style="color:#ffd740;"></i></mat-toolbar>
+<div style="margin-top: 10px;">
+    <div mat-dialog-content>
+        <p>{{ data.message }}</p>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-stroked-button (click)="onClose()">No</button>
+        <button mat-raised-button color="primary" cdkFocusInitial (click)="onClickYes()">Yes</button>
+    </div>
 </div>
