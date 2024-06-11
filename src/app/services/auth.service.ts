@@ -29,16 +29,4 @@ export class AuthService {
       })
     )
   }
-  // async checkEmailExists(email: string) {
-  //   try {
-  //     const methods = await this.fireAuth.fetchSignInMethodsForEmail(email);
-  //     if (methods && methods.length > 0) {
-  //       return true;
-  //     } else {
-  //       return false;
-  //     }
-  //   } catch (error) {
-  //     return false;
-  //   }
-  // }
 }
