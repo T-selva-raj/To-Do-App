@@ -1,18 +1,24 @@
-<app-common-header title="Add Task"></app-common-header>
+<app-common-header title="Add Task" style="height: 5%;"></app-common-header>
 <div fxLayout="row" fxLayoutAlign="space-around center">
     <div fxFlex="50%" style="display: flex;align-items: center;justify-content: center;" fxHide.lt-md>
         <img src="../../assets/Add tasks.gif" alt="img">
     </div>
     <div class="add-task-container" fxFlex="50%" fxFlex.lt-md="85%">
-        <form [formGroup]="taskform">
+        <form [formGroup]="taskform" fxLayout="column" fxLayoutGap="5px">
             <mat-form-field appearance="outline">
                 <mat-label>Task Title</mat-label>
                 <input matInput placeholder="Enter task title" required formControlName="taskName">
+                <mat-error *ngIf="taskform.get('taskName')?.hasError('required')">Task name is required</mat-error>
+                <mat-error *ngIf="taskform.get('taskName')?.hasError('maxlength')">Name should not exceed 15
+                    charecters</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Task Description</mat-label>
                 <textarea matInput placeholder="Enter task description" required
                     formControlName="description"></textarea>
+                <mat-error *ngIf="taskform.get('description')?.hasError('required')">Description is required</mat-error>
+                <mat-error *ngIf="taskform.get('description')?.hasError('maxlength')">Description should not exceed 150
+                    charecters</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Due Date</mat-label>
@@ -20,6 +26,7 @@
                     formControlName="dueDate" [matDatepickerFilter]="dateFilter">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="taskform.get('dueDate')?.hasError('required')">Due date is required</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Priority</mat-label>
@@ -27,6 +34,8 @@
                     <mat-option *ngFor="let p of priority" [value]="p">{{ p }}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="taskform.get('importance')?.hasError('required')">Task priority is
+                    required</mat-error>
             </mat-form-field>
             <div class="form-actions" fxLayout="row" fxLayoutAlign="space-around center">
                 <button mat-stroked-button color="warn">cancel</button>

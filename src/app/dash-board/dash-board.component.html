@@ -1,62 +1,60 @@
-<div fxFill>
-    <mat-toolbar class="mat-elevation-z8" color="accent" fxLayout="row" fxLayoutAlign="space-between center">
-        <div>
-            <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
-                <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
-                <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
-            </button>
-            <span style="font-weight: bold;">{{title}}</span>
-        </div>
-        <div>
-            <button mat-icon-button (click)="logout()"><i class="bi bi-power"
-                    style="font-weight:450 !important ;color: black;"></i></button>
-        </div>
-    </mat-toolbar>
-    <app-loader *ngIf="isLoader"></app-loader>
-    <mat-sidenav-container>
-        <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-            <div class="profile">
-                <div class="profile-img">
-                    <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                        alt="profile">
-                </div>
-                <div class="profile-text">
-                    <h2 style="color: black;">Welcome back..!</h2>
-                </div>
+<mat-toolbar class="mat-elevation-z8" color="accent" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+            <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
+            <mat-icon *ngIf="sidenav.opened"> close </mat-icon>
+        </button>
+        <span style="font-weight: bold;">{{title}}</span>
+    </div>
+    <div>
+        <button mat-icon-button (click)="logout()"><i class="bi bi-power"
+                style="font-weight:450 !important ;color: black;"></i></button>
+    </div>
+</mat-toolbar>
+<app-loader *ngIf="isLoader"></app-loader>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+        <div class="profile">
+            <div class="profile-img">
+                <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                    alt="profile">
             </div>
-            <mat-divider></mat-divider>
-            <a mat-button class="menu-button" routerLink="/app/dashboard" (click)="closeNav()">
-                <i class="bi bi-house bold-icon"></i>&nbsp;
-                <span>Dashboard</span>
-            </a>
-            <a mat-button class="menu-button" routerLink="/app/profile" (click)="closeNav()">
-                <i class="bi bi-person bold-icon"></i>&nbsp;
-                <span>Profile</span>
-            </a>
-            <a mat-button class="menu-button" routerLink="/app/add" (click)="closeNav()">
-                <i class="bi bi-plus-circle bold-icon"></i>&nbsp;
-                <span>Add Task</span>
-            </a>
-            <a mat-button class="menu-button" routerLink="/app/all" (click)="closeNav()">
-                <i class="bi bi-list-task"></i>&nbsp;
-                <span>All Tasks</span>
-            </a><a mat-button class="menu-button" routerLink="/app/report" (click)="closeNav()">
-                <i class="bi bi-graph-up"></i>&nbsp;
-                <span>Report</span>
-            </a><a mat-button class="menu-button" routerLink="/app/contactus" (click)="closeNav()">
-                <i class="bi bi-telephone"></i>&nbsp;
-                <span>Contact us</span>
-            </a>
-            <mat-divider></mat-divider>
-            <small style="color: black;">
-                copyright@2024
-            </small><br>
-            <small style="color: black;">Selvaraj T</small>
-        </mat-sidenav>
-        <mat-sidenav-content>
-            <div class="content mat-elevation-z8">
-                <router-outlet></router-outlet>
+            <div class="profile-text">
+                <h2 style="color: black;">Welcome back..!</h2>
             </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
-</div>
+        </div>
+        <mat-divider></mat-divider>
+        <a mat-button class="menu-button" routerLink="/app/dashboard" (click)="closeNav()">
+            <i class="bi bi-house bold-icon"></i>&nbsp;
+            <span>Dashboard</span>
+        </a>
+        <a mat-button class="menu-button" routerLink="/app/profile" (click)="closeNav()">
+            <i class="bi bi-person bold-icon"></i>&nbsp;
+            <span>Profile</span>
+        </a>
+        <a mat-button class="menu-button" routerLink="/app/add" (click)="closeNav()">
+            <i class="bi bi-plus-circle bold-icon"></i>&nbsp;
+            <span>Add Task</span>
+        </a>
+        <a mat-button class="menu-button" routerLink="/app/all" (click)="closeNav()">
+            <i class="bi bi-list-task"></i>&nbsp;
+            <span>All Tasks</span>
+        </a><a mat-button class="menu-button" routerLink="/app/report" (click)="closeNav()">
+            <i class="bi bi-graph-up"></i>&nbsp;
+            <span>Report</span>
+        </a><a mat-button class="menu-button" routerLink="/app/contactus" (click)="closeNav()">
+            <i class="bi bi-telephone"></i>&nbsp;
+            <span>Contact us</span>
+        </a>
+        <mat-divider></mat-divider>
+        <small style="color: black;">
+            copyright@2024 <i>Selvaraj T</i>
+        </small>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z8 ">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

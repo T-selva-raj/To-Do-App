@@ -3,10 +3,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Jersey+25&display=swap');
 
+@font-face {
+    font-family: "clock-font";
+    src: url('./assets/fonts/digital-7.ttf');
+}
+
 :root {
     --primary-color: #ffd740;
-    --clock: "Jersey 25", sans-serif;
+    --clock: "clock-font", sans-serif;
     --heading: "Anton", sans-serif;
+    --box: 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
+        -10px -10px 10px -1px rgba(255, 255, 255, 0.7);
 }
 
 html,
@@ -59,25 +66,6 @@ body {
     background-color: #4caf50;
     color: #fff;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -11,8 +11,8 @@ export class AddTaskComponent {
   priority: string[] = ["High", "Medium", "Low"];
   constructor(private fb: FormBuilder) {
     this.taskform = this.fb.group({
-      taskName: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      taskName: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', [Validators.required, Validators.maxLength(150)]],
       dueDate: ['', [Validators.required]],
       importance: ['', [Validators.required]]
     });
