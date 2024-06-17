@@ -9,6 +9,7 @@ import { Chart } from 'chart.js';
 export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
   private chart!: Chart;
   @ViewChild('MyChart') myChart!: ElementRef<HTMLCanvasElement>;
+  axisColor: string = 'rgba(255,2555,255,0.3)';
   constructor() { }
 
   ngOnInit(): void {
@@ -36,7 +37,7 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
             borderColor: '#ffd740',
             backgroundColor: '#ffd740',
             borderWidth: 2,
-            pointBackgroundColor: '#ffd740',
+            pointBackgroundColor: '#ffd740'
           }]
         },
         options: {
@@ -47,7 +48,7 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
             y: {
               beginAtZero: true,
               grid: {
-                color: 'rgba(0, 0, 0, 0.1)',
+                color: this.axisColor,
               },
               max: 21,
               ticks: {
@@ -56,26 +57,7 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
             },
             x: {
               grid: {
-                color: 'rgba(0, 0, 0, 0.1)',
-              }
-            }
-          },
-          plugins: {
-            tooltip: {
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              bodyFont: {
-                size: 14,
-              },
-              titleFont: {
-                size: 16,
-                weight: 'bold',
-              }
-            },
-            legend: {
-              labels: {
-                font: {
-                  size: 14,
-                }
+                color: this.axisColor,
               }
             }
           }

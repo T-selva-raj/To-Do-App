@@ -1,7 +1,8 @@
-<div fxFill>
+<div style="height: 78vh;">
     <app-common-header [title]="Report"></app-common-header>
     <div fxLayout="row" fxLayoutAlign="end none">
-        <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+        <button mat-button [matMenuTriggerFor]="menu"><mat-icon
+                style="color: var(--primary-font-color);">more_vert</mat-icon></button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item>1st Week</button>
             <button mat-menu-item>2nd Week</button>

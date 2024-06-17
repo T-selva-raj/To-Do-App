@@ -8,12 +8,49 @@
     src: url('./assets/fonts/digital-7.ttf');
 }
 
-:root {
+.light {
     --primary-color: #ffd740;
+    --primary-font-color: black;
     --clock: "clock-font", sans-serif;
     --heading: "Anton", sans-serif;
     --box: 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
         -10px -10px 10px -1px rgba(255, 255, 255, 0.7);
+    --shadow-border: 9px;
+    --box-shadow: 6px 6px 11px #9d9c9c,
+        -6px -6px 11px #fcfafa;
+    --heading: black;
+    --background-color: white;
+    --divider-color: rgba(255, 255, 255, 0.5);
+    --profile-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5) inset;
+    --tool-bar-background: var(--primary-color);
+    --mat-card: var(--background-color);
+    --mat-card-border: var(--box-shadow);
+    --axis-color: black;
+}
+
+.shadow {
+    border-radius: var(--shadow-border);
+    box-shadow: var(--box-shadow);
+}
+
+.dark {
+    --primary-color: #ffb300;
+    --primary-font-color: var(--primary-color);
+    --clock: "clock-font", sans-serif;
+    --heading: "Anton", sans-serif;
+    --box: 0px 0px 2px rgba(82, 172, 240, 0.16),
+        0px 0px 2px rgba(241, 234, 234, 0.7);
+    --shadow-border: 9px;
+    --box-shadow: 0px 0px 7px var(--primary-color),
+        0px 0px 1px #141313;
+    --heading: black;
+    --background-color: #292929;
+    --divider-color: rgba(0, 0, 0, 0.5);
+    --tool-bar-background: var(--primary-color);
+    --mat-card: #292929;
+    --mat-card-border: 0px 0px 7px var(--primary-color),
+        0px 0px 1px #141313;
+    --axis-color: var(--primary-color)
 }
 
 html,
@@ -68,11 +105,19 @@ body {
 }
 
 
+mat-toolbar {
+    background-color: var(--tool-bar-background) !important;
+}
 
+mat-sidenav-container {
+    background-color: var(--background-color) !important;
+    color: var(--primary-font-color) !important;
+}
 
-
-
-
+.mat-card {
+    background-color: var(--background-color) !important;
+    box-shadow: var(--box-shadow) !important;
+}
 
 
 

@@ -1,20 +1,15 @@
-mat-toolbar {
-    color: white;
-}
-
 mat-sidenav {
     margin: 16px;
     width: 200px;
     border-right: none;
     background: var(--primary-color);
-    color: white;
     border-radius: 10px;
     padding: 16px;
     text-align: center;
 }
 
 .content {
-    height: calc(100vh - 130px);
+    min-height: 88%;
     border-radius: 10px;
     margin: 16px;
     margin-left: 32px;
@@ -22,7 +17,7 @@ mat-sidenav {
 }
 
 mat-sidenav-container {
-    height: calc(100vh - 65px);
+    height: calc(100vh - 65px) !important;
 }
 
 
@@ -39,28 +34,10 @@ mat-icon {
     margin-right: 8px;
 }
 
-.avatar {
-    margin-top: 16px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
-
-.name {
-    margin-top: 8px;
-    font-weight: normal;
-}
-
-.designation {
-    margin-top: 2px;
-    font-size: 0.7rem;
-    color: lightgrey;
-}
-
 mat-divider {
     margin-top: 16px;
     margin-bottom: 16px;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--divider-color);
 }
 
 .bold-icon {
@@ -82,9 +59,7 @@ mat-divider {
     border-radius: 50%;
     position: relative;
     padding: 5px;
-    /* border: 2px solid black; */
-    box-shadow: 10px 10px 10px -1px rgba(10, 99, 169, 0.16),
-        2px 2px 10px -1px rgba(10, 99, 169, 0.16) inset;
+    box-shadow: var(--profile-box-shadow);
     animation: float 2s ease-in-out infinite;
     filter: blur(1);
 }

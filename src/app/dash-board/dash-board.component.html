@@ -1,4 +1,4 @@
-<mat-toolbar class="mat-elevation-z8" color="accent" fxLayout="row" fxLayoutAlign="space-between center">
+<mat-toolbar fxLayout="row" fxLayoutAlign="space-between center">
     <div fxLayout="row" fxLayoutAlign="space-between center">
         <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
             <mat-icon *ngIf="!sidenav.opened"> menu </mat-icon>
@@ -6,14 +6,21 @@
         </button>
         <span style="font-weight: bold;">{{title}}</span>
     </div>
-    <div>
-        <button mat-icon-button (click)="logout()"><i class="bi bi-power"
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-icon-button fxLayout="row" fxLayoutAlign="center center" (click)="toggleTheme()">
+            <i class=" bi bi-moon-stars-fill" *ngIf="currentTheme=='dark'"
+                style="font-size: 18px;font-weight: bold !important;"></i>
+            <i class="bi bi-brightness-high" *ngIf="currentTheme=='light'"
+                style="display: inline-block; width: 24px; height: 24px;"></i>
+        </button>
+
+        <button mat-icon-button (click)="logout()" fxLayout="row" fxLayoutAlign="center center"><i class="bi bi-power"
                 style="font-weight:450 !important ;color: black;"></i></button>
     </div>
 </mat-toolbar>
 <app-loader *ngIf="isLoader"></app-loader>
 <mat-sidenav-container>
-    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+    <mat-sidenav #sidenav="matSidenav" class="shadow">
         <div class="profile">
             <div class="profile-img">
                 <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
@@ -53,7 +60,7 @@
 
     </mat-sidenav>
     <mat-sidenav-content>
-        <div class="content mat-elevation-z8 ">
+        <div class="content shadow">
             <router-outlet></router-outlet>
         </div>
     </mat-sidenav-content>

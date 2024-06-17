@@ -1,10 +1,9 @@
-<div fxLayout="column" fxLayoutAlign="space-evenly stretch" fxFlexFill>
+<div fxLayout="column" fxLayoutAlign="space-between stretch" fxLayoutGap="20px" fxFill>
     <div fxLayout="row" fxLayoutAlign="center start">
         <app-clock></app-clock>
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100" fxLayout.lt-md="column"
-        fxLayoutAlign.lt-md="space-around stretch">
-        <div class="graph-container" fxFlex="45" fxFlex.lt-md="100">
+    <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100">
+        <div class="graph-container" fxFlex="45" fxFlex.lt-md="95">
             <app-chart></app-chart>
         </div>
         <div class=" graph-container " fxFlex="45" fxHide.lt-md fxLayout="row">
@@ -16,12 +15,12 @@
                 <img src="../../assets/in-progress-animate.svg" alt="" width="100%" height="90%">
             </div>
         </div>
-    </div>
+    </div><br>
     <div fxLayout="row" fxLayoutAlign="space-around stretch" fxFlex="100" fxLayout.lt-md="column"
-        fxLayoutAlign.lt-md="space-around stretch">
+        fxLayoutAlign.lt-md="space-around stretch" fxLayoutGap="20px">
         <div fxLayout="row" fxLayoutAlign="space-between center " fxFlex="45%">
-            <mat-card class="time-card mat-elevation-z4" fxFlex="48%" fxLayoutGap="10px" *ngFor="let i of tasks1"
-                fxLayout="row">
+            <mat-card class="time-card mat-elevation-z4 mat-card" fxFlex=" 48%" fxLayoutGap="10px"
+                *ngFor="let i of tasks1" fxLayout="row">
                 <div class="img center">
                     <img src={{i.img}} style="width:80%;height:80%;">
                 </div>
@@ -32,9 +31,9 @@
             </mat-card>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="45%">
-            <mat-card class="time-card mat-elevation-z4" fxFlex="100%">
+            <mat-card class="time-card mat-elevation-z4 mat-card " fxFlex="100%">
                 <div *ngFor="let i of tasks2" fxFlex="100" fxLayout="row">
-                    <div class="img center">
+                    <div class="img center ">
                         <img src={{i.img}} style="width:80%;height:80%;">
                     </div>
                     <div class="detail">
@@ -46,15 +45,10 @@
         </div>
     </div>
     <br>
-    <!-- <div fxLayout="column" fxLayoutGap="5px">
-
-        <mat-card *ngFor="let task of tasks" fxFlex="100">
-            <div class="stared-task">
-                <h1>{{task.name}}</h1>
-                <small>{{task.description}} </small>
-            </div>
-        </mat-card>
-    </div> -->
+    <div fxLayout="column" fxLayoutAlign="center center" class="today-to-do" fxHide.gt-md>
+        <p>To Do Today</p><br>
+        <p>2</p>
+    </div>
 
 
 </div>

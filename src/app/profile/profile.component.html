@@ -1,15 +1,13 @@
-<div fxFill>
+<div>
     <app-common-header title="Profile"></app-common-header>
-    <br>
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-md="column"
-        fxLayoutAlign.lt-md="space-between stretch">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-md="column" fxLayoutAlign.lt-md="none stretch">
         <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
             <div fxLayout="column" fxLayoutAlign="center center" class="profile">
                 <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                    alt="contact-us" width="70%" height="70%" class="box">
-                <h1>Selvaraj T</h1>
+                    alt="profile" width="70%" height="70%" class="box">
+                <h1 fxHide.lt-md>Selvaraj T</h1>
             </div>
-            <div fxLayout="row" fxLayoutAlign="center center" class="social box">
+            <div fxLayout="row" fxLayoutAlign="center center" class="social box" fxHide.lt-md>
                 <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
                     <mat-icon>home</mat-icon>
                 </button>
@@ -21,24 +19,22 @@
                 </button>
             </div>
         </div>
-        <mat-card class="mat-elevation-z4" fxFlex="70" fxFlex.lt-md="70">
-            <form fxLayout="column" fxLayoutAlign="center center" style="padding: 16px;">
-                <mat-form-field style="width: 100%;" appearance="outline">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="email" readonly>
-                </mat-form-field>
-                <mat-form-field style="width: 100%;" appearance="outline">
-                    <mat-label>About</mat-label>
-                    <textarea matInput rows="4" readonly></textarea>
-                </mat-form-field>
-                <div fxLayout="row" fxLayoutAlign="center center">
-                    <h1>Tasks Completed : <span id="counter">100+</span></h1>
-                </div>
-                <div class="button-container">
-                    <button mat-raised-button color="accent">Edit</button>
-                </div>
-            </form>
-        </mat-card>
+        <!-- <mat-card class="mat-elevation-z4" fxFlex="70" fxFlex.lt-md="100"> -->
+        <div fxLayout="column" fxLayoutAlign="center center" style="padding: 16px;">
+            <h1>John Wick</h1>
+            <h2>"Hello! I'm a dedicated and organized individual who loves to stay on top of my tasks and projects. This
+                ToDo
+                application helps me manage my daily activities efficiently and ensures I never miss a deadline. I enjoy
+                setting goals
+                and completing them one step at a time. Let's stay productive and make every day count!".</h2>
+            <h3>johnwick@gmail.com</h3>
+            <h1>Tasks completed : <span id="counter">100+</span></h1>
+            <div class="button-container">
+                <button mat-raised-button color="accent">Edit</button>
+            </div>
+        </div>
+        <!-- </mat-card> -->
+
     </div>
 
 </div>

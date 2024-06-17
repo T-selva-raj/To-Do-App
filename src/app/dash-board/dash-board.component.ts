@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { MESSAGES } from '../shared/constants/messages';
   templateUrl: './dash-board.component.html',
   styleUrls: ['./dash-board.component.css']
 })
-export class DashBoardComponent implements AfterViewInit, OnDestroy {
+export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -21,12 +21,21 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy {
   isLoader: boolean = false;
   subscriptionObj = new Subscription();
   isSmallScreen: boolean = false;
-
+  currentTheme: string = localStorage.getItem('theme') ?? 'light';
   constructor(
     private observer: BreakpointObserver,
     private route: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private renderer: Renderer2
   ) { }
+  ngOnInit(): void {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      localStorage.setItem('theme', 'dark')
+    } else {
+      localStorage.setItem('theme', 'light')
+    }
+    this.setTheme();
+  }
 
   ngAfterViewInit() {
     this.subscriptionObj.add(this.observer.observe(["(max-width: 800px)"]).subscribe((res: BreakpointState) => {
@@ -59,6 +68,15 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy {
     if (this.isSmallScreen) {
       this.sidenav.close();
     }
+  }
+  toggleTheme(): void {
+    this.renderer.removeClass(document.body, this.currentTheme);
+    this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', this.currentTheme);
+    this.setTheme();
+  }
+  setTheme(): void {
+    this.renderer.addClass(document.body, this.currentTheme);
   }
 
   ngOnDestroy() {

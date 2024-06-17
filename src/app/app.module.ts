@@ -45,6 +45,7 @@ import { environment } from "../environments/enviorment";
 import { SharedModule } from './shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { LoaderComponent } from './loader/loader.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 Chart.register(...registerables);
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ Chart.register(...registerables);
     MatSelectModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     SharedModule
