@@ -105,9 +105,7 @@ body {
 }
 
 
-mat-toolbar {
-    background-color: var(--tool-bar-background) !important;
-}
+
 
 mat-sidenav-container {
     background-color: var(--background-color) !important;

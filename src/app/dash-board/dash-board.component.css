@@ -8,6 +8,10 @@ mat-sidenav {
     text-align: center;
 }
 
+mat-toolbar {
+    background-color: var(--tool-bar-background) !important;
+}
+
 .content {
     min-height: 88%;
     border-radius: 10px;
