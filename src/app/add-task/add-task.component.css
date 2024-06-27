@@ -1,6 +1,5 @@
 .add-task-container {
     max-width: 600px;
-    margin: 20px auto;
     padding: 20px;
 }
 
@@ -15,8 +14,4 @@ h2 {
 
 .form-actions {
     text-align: center;
-}
-
-mat-form-field {
-    width: 100%;
 }

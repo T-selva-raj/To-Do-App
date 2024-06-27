@@ -1,40 +1,64 @@
-<div>
-    <app-common-header title="Profile"></app-common-header>
-    <div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-md="column" fxLayoutAlign.lt-md="none stretch">
-        <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
-            <div fxLayout="column" fxLayoutAlign="center center" class="profile">
-                <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                    alt="profile" width="70%" height="70%" class="box">
-                <h1 fxHide.lt-md>Selvaraj T</h1>
-            </div>
-            <div fxLayout="row" fxLayoutAlign="center center" class="social box" fxHide.lt-md>
-                <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
-                    <mat-icon>home</mat-icon>
-                </button>
-                <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
-                    <mat-icon>favorite</mat-icon>
-                </button>
-            </div>
+<app-common-header title="Profile"></app-common-header>
+<div fxLayout="row" fxLayoutAlign="center center" fxLayout.lt-md="column" fxLayoutAlign.lt-md="none stretch">
+    <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutAlign="center center" class="profile">
+            <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
+                alt="profile" width="70%" height="70%" class="box">
+            <h1 fxHide.lt-md>Selvaraj T</h1>
         </div>
-        <!-- <mat-card class="mat-elevation-z4" fxFlex="70" fxFlex.lt-md="100"> -->
-        <div fxLayout="column" fxLayoutAlign="center center" style="padding: 16px;">
-            <h1>John Wick</h1>
-            <h2>"Hello! I'm a dedicated and organized individual who loves to stay on top of my tasks and projects. This
-                ToDo
-                application helps me manage my daily activities efficiently and ensures I never miss a deadline. I enjoy
-                setting goals
-                and completing them one step at a time. Let's stay productive and make every day count!".</h2>
-            <h3>johnwick@gmail.com</h3>
-            <h1>Tasks completed : <span id="counter">100+</span></h1>
-            <div class="button-container">
-                <button mat-raised-button color="accent">Edit</button>
-            </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="social box" fxHide.lt-md>
+            <button mat-icon-button color="primary" aria-label="Example icon button with a home icon">
+                <mat-icon>home</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                <mat-icon>favorite</mat-icon>
+            </button>
         </div>
-        <!-- </mat-card> -->
-
     </div>
+    <!-- <mat-card class="mat-elevation-z4" fxFlex="70" fxFlex.lt-md="100"> -->
+    <div fxLayout="column" fxLayoutAlign="center center" style="padding: 16px;">
+        <h1>John Wick</h1>
+        <h2>"Hello! I'm a dedicated and organized individual who loves to stay on top of my tasks and projects. This
+            ToDo
+            application helps me manage my daily activities efficiently and ensures I never miss a deadline. I enjoy
+            setting goals
+            and completing them one step at a time. Let's stay productive and make every day count!".</h2>
+        <h3>johnwick@gmail.com</h3>
+        <h1>Tasks completed : <span id="counter">100+</span></h1>
+        <div class="button-container">
+            <button mat-raised-button color="accent" (click)="openEditProfileDialog(editProfileTemplate)">Edit</button>
+        </div>
+    </div>
+    <!-- </mat-card> -->
 
 </div>
+
+<ng-template #editProfileTemplate let-dialogRef="dialogRef">
+    <mat-toolbar mat-dialog-title style="background-color: var(--primary-color) !important;">Edit Profile</mat-toolbar>
+    <mat-dialog-content>
+        <form [formGroup]="editProfileForm" fxLayout="column" fxLayoutAlign="center stretch">
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayputGap="10px">
+                <div class="image-preview-container">
+                    <img [src]="imagePreview" alt="Profile Image Preview" class="image-preview">
+                </div>
+                <div class="file-input-container">
+                    <label for="profileImage" class="file-input-label"> Change Profile Image</label>
+                    <input type="file" id="profileImage" (change)="onFileSelected($event)" accept="image/*"
+                        class="file-input">
+                </div>
+            </div>
+            <br>
+            <mat-form-field appearance="outline">
+                <mat-label>User Name</mat-label>
+                <input matInput formControlName="username">
+            </mat-form-field>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button (click)="onCancel(dialogRef)">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onSave(dialogRef)">Save</button>
+    </mat-dialog-actions>
+</ng-template>
