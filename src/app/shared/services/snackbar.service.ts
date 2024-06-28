@@ -35,10 +35,12 @@ export class SnackbarService {
     this.snackBar.openFromComponent(SnackbarComponent, {
       data: {
         header: input.message,
-        content: property?.icon
+        content: property?.icon,
+        type: property?.type
       },
       duration: input.duration ? input.duration : 3000,
-      verticalPosition: 'bottom'
+      verticalPosition: 'bottom',
+      panelClass: 'success'
     });
   }
 

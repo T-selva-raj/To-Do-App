@@ -112,11 +112,17 @@ mat-sidenav-container {
     color: var(--primary-font-color) !important;
 }
 
-.mat-card {
+mat-card {
     background-color: var(--background-color) !important;
     box-shadow: var(--box-shadow) !important;
 }
 
+input,
+mat-label,
+.mat-mdc-select-value-text,
+.mat-datepicker-toggle {
+    color: var(--primary-font-color) !important;
+}
 
 
 

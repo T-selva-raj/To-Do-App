@@ -58,7 +58,10 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
     this.subscriptionObj.add(this.dialogRef.afterClosed().subscribe((res: any) => {
       if (res) {
         this.isLoader = true;
+        this.renderer.removeClass(document.body, this.currentTheme);
+        this.currentTheme = 'light';
         localStorage.clear();
+        this.setTheme();
         this.route.navigate(['login']);
       }
     }));
@@ -76,6 +79,7 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
     this.setTheme();
   }
   setTheme(): void {
+    localStorage.setItem('theme', this.currentTheme);
     this.renderer.addClass(document.body, this.currentTheme);
   }
 

@@ -15,7 +15,20 @@ export class SnackbarComponent {
    * @param snackBarRef SnackBar Component Close Action
    */
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any, public snackBarRef: MatSnackBarRef<SnackbarComponent>) {
+    console.log(data);
 
+  }
+  getClass(): string {
+    switch (this.data?.type) {
+      case (0):
+        return 'success';
+      case (3):
+        return 'error';
+      case (1):
+        return 'info';
+      default:
+        return 'default';
+    }
   }
   /**
    * Method used to close snackbar 

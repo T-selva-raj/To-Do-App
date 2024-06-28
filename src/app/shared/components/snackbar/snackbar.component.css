@@ -1,0 +1,18 @@
+.success {
+    background-color: green;
+    color: white;
+}
+
+.error {
+    background-color: red;
+    color: white;
+}
+
+.info {
+    background-color: yellowgreen;
+    color: black;
+}
+
+.default {
+    background-color: var(--primary-color);
+}
