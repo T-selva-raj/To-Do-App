@@ -39,7 +39,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
             console.log("res", res.user);
             this.isLoading = false;
             localStorage.setItem("uuid", res?.user?.uid);
-            this.snackbar.openSnackBar({ message: "Logged In Successfully..!", snacktype: SnackType.Success });
+            this.snackbar.openSnackBar({ message: "Logged In Successfully..!", snacktype: SnackType.Success, class: 'success' });
             this.router.navigate(['app/dashboard']);
           },
           (error) => {
@@ -64,7 +64,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
               default:
                 errorMessage = 'Internal server error.';
             }
-            this.snackbar.openSnackBar({ message: errorMessage, snacktype: SnackType.Error });
+            this.snackbar.openSnackBar({ message: errorMessage, snacktype: SnackType.Error, class: 'error' });
           }
         )
       );

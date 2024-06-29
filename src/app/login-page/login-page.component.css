@@ -1,0 +1,6 @@
+.login-card {
+    border: 1px solid #9d9c9c;
+    border-radius: 5px;
+    box-shadow: 6px 6px 11px #9d9c9c,
+        -6px -6px 11px #fcfafa !important;
+}

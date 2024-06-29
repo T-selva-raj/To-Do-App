@@ -6,5 +6,5 @@ export interface Snackbar {
     message: string;
     snacktype: SnackType;
     duration?: number,
-    panelClass?: string
+    class?: string
 }

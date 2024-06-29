@@ -1,18 +1,22 @@
-.success {
-    background-color: green;
+::ng-deep .success {
+    --mdc-snackbar-container-color: rgb(0 130 67) !important;
+    border-radius: 10px;
     color: white;
 }
 
-.error {
-    background-color: red;
+::ng-deep .error {
+    --mdc-snackbar-container-color: rgb(235, 43, 43) !important;
     color: white;
+    border-radius: 10px;
 }
 
-.info {
-    background-color: yellowgreen;
+::ng-deep .info {
+    --mdc-snackbar-container-color: rgb(240, 190, 39) !important;
     color: black;
+    border-radius: 10px;
 }
 
-.default {
-    background-color: var(--primary-color);
+::ng-deep .default {
+    border-radius: 10px;
+    --mdc-snackbar-container-color: var(--primary-color) !important;
 }

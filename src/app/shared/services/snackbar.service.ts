@@ -31,6 +31,7 @@ export class SnackbarService {
    * @param input 
    */
   openSnackBar(input: Snackbar) {
+
     const property = this.details.find(x => x.type === input.snacktype);
     this.snackBar.openFromComponent(SnackbarComponent, {
       data: {
@@ -40,7 +41,7 @@ export class SnackbarService {
       },
       duration: input.duration ? input.duration : 3000,
       verticalPosition: 'bottom',
-      panelClass: 'success'
+      panelClass: input.class ? input.class : 'success'
     });
   }
 

@@ -117,7 +117,8 @@ mat-card {
     box-shadow: var(--box-shadow) !important;
 }
 
-input,
+
+p input,
 mat-label,
 .mat-mdc-select-value-text,
 .mat-datepicker-toggle {
