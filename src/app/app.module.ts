@@ -36,6 +36,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 
@@ -46,6 +47,7 @@ import { SharedModule } from './shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { LoaderComponent } from './loader/loader.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { HttpClientModule } from '@angular/common/http';
 Chart.register(...registerables);
 @NgModule({
   declarations: [
@@ -89,9 +91,11 @@ Chart.register(...registerables);
     MatProgressBarModule,
     MatDialogModule,
     MatSlideToggleModule,
+    MatChipsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

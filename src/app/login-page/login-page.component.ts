@@ -15,7 +15,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   subscriptionObj: Subscription = new Subscription();
   isLoading: boolean = false;
-
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -36,7 +35,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       this.subscriptionObj.add(
         this.auth.signIn(formData.email, formData.password).subscribe(
           (res: any) => {
-            console.log("res", res.user);
             this.isLoading = false;
             localStorage.setItem("uuid", res?.user?.uid);
             this.snackbar.openSnackBar({ message: "Logged In Successfully..!", snacktype: SnackType.Success, class: 'success' });
@@ -44,27 +42,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           },
           (error) => {
             this.isLoading = false;
-            let errorMessage: string;
-            switch (error.code) {
-              case 'auth/user-not-found':
-                errorMessage = 'User not found.';
-                break;
-              case 'auth/wrong-password':
-                errorMessage = 'Incorrect password.';
-                break;
-              case 'auth/invalid-email':
-                errorMessage = 'Invalid email address.';
-                break;
-              case 'auth/invalid-credential':
-                errorMessage = 'Invalid credentials';
-                break;
-              case 'auth/too-many-requests':
-                errorMessage = 'Too many requests';
-                break;
-              default:
-                errorMessage = 'Internal server error.';
-            }
-            this.snackbar.openSnackBar({ message: errorMessage, snacktype: SnackType.Error, class: 'error' });
+            this.snackbar.openSnackBar({ message: error?.error, snacktype: SnackType.Error, class: 'error' });
           }
         )
       );

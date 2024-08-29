@@ -1,1 +1,24 @@
-<h1>vanakkam da mapla</h1>
+<app-common-header title="All Tasks" style="height: 5%;"></app-common-header>
+<div class="all-task-container" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="space-around none">
+    <div *ngFor="let item of allTasks;" fxFlex.gt-md="30%" fxFlex.md="45%" fxFlex.sm="100%">
+        <div class="task-card" fxLayout="column" fxLayoutAlign="space-around none" fxFlex="100%">
+            <h2>{{ item.name }}</h2>
+            <h3>Due Date : &nbsp;{{ item.due }}</h3>
+            <div fxFlex="100%" fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 10px;">
+                <div fxFlex="30%" class="priority-chip" fxLayout="row" fxLayoutAlign="center center"
+                    [ngStyle]="{ backgroundColor: getColor(item?.priority)||'white' }">
+                    <h5>{{item.priority}}</h5>
+                </div>
+                <div fxFlex="40%">
+                    <select [(ngModel)]="item.status" (ngModelChange)="onStatusChange(item, $event)" class="select"
+                        [ngStyle]="{ color: getColor(item?.status) }">
+                        <option value="open">Open</option>
+                        <option value="progress">Progress</option>
+                        <option value="done">Done</option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -23,4 +23,8 @@ export class AddTaskComponent {
     currentDate.setHours(0, 0, 0, 0);
     return d !== null && d >= currentDate;
   }
+
+  clearForm(value: FormGroup) {
+    value.reset();
+  }
 }

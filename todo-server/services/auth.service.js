@@ -5,6 +5,8 @@ const User = require('../models').user;
 const jwt = require('jsonwebtoken');
 const register = async (email, password) => {
     try {
+        email = await CryptoService.decryptDetails(email);
+        password = await CryptoService.decryptDetails(password);
         const hashedPassword = await bcrypt.hash(password, 10);
         const [error, userRecord] = await to(admin.auth().createUser({
             email,
@@ -29,6 +31,8 @@ const register = async (email, password) => {
 
 const login = async (email, password) => {
     try {
+        email = await CryptoService.decryptDetails(email);
+        password = await CryptoService.decryptDetails(password);
         const [fetchError, userRecord] = await to(admin.auth().getUserByEmail(email));
         if (fetchError) {
             console.error('Error fetching user:', fetchError);

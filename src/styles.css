@@ -125,7 +125,13 @@ mat-label,
     color: var(--primary-font-color) !important;
 }
 
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    color: var(--primary-font-color) !important;
+}
 
+input {
+    border: #ef0b0b !important;
+}
 
 
 
