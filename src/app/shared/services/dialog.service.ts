@@ -6,7 +6,7 @@ import { DialogComponent } from '../components/dialog/dialog.component';
   providedIn: 'root'
 })
 export class DialogService {
-
+  isLoader = false;
   constructor(private dialog: MatDialog) { }
 
 

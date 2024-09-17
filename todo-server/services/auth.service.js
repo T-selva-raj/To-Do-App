@@ -20,7 +20,8 @@ const register = async (email, password) => {
             const hashedPassword = await bcrypt.hash(password, 10);
             const user = await User.create({
                 email: email,
-                password: hashedPassword
+                password: hashedPassword,
+                uid: userRecord.uid
             });
         }
         return userRecord;
@@ -42,8 +43,7 @@ const login = async (email, password) => {
         if (!user) throw new Error('User not found');
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) throw new Error('Invalid password');
-        console.log({ email: userRecord.email, id: userRecord.uid });
-        const [jwtError, jwtToken] = await to(createJwt({ email: userRecord.email, id: userRecord.uid }));
+        const [jwtError, jwtToken] = await to(createJwt({ email: user.email, uid: user.uid, id: user.id }));
         if (jwtError) throw new Error(jwtError.message);
         return jwtToken;
     } catch (error) {
@@ -55,13 +55,14 @@ const createJwt = async (user) => {
     try {
         const token = 'Bearer ' + jwt.sign({
             email: user.email,
-            id: user.id
+            id: user.id,
+            uid: user.uid
         }, CONFIG.jwt_encryption, { expiresIn: '1h' });
-        const [encryptionError, encryptedToken] = await to(CryptoService.encryptDetails(token));
-        if (encryptionError) {
-            console.error('Error encrypting token:', encryptionError);
-            throw new Error(encryptionError.message);
-        }
+        const encryptedToken = CryptoService.encryptDetails(token);
+        // if (encryptionError) {
+        //     console.error('Error encrypting token:', encryptionError);
+        //     throw new Error(encryptionError.message);
+        // }
         return encryptedToken;
     } catch (error) {
         return { error: error.message };

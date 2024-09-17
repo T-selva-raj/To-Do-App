@@ -20,5 +20,6 @@ CONFIG.db_dialect = process.env.db_dialect;
 CONFIG.db_port = process.env.db_port;
 CONFIG.jwt_encryption = process.env.jwt_encryption;
 CONFIG.jwt_expiration = process.env.jwt_expiration;
+CONFIG.DB_URL = "postgresql://postgres.aiczeffyladcjnuqtpft:eJ20jPOSD58ODIfg@aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres"
 
 module.exports = CONFIG;

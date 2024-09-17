@@ -7,4 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class CommonHeaderComponent {
   @Input('title') title = '';
+  @Input('search') search = false;
+  @Input('filter') filter = false;
 }

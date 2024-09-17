@@ -7,6 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../shared/components/dialog/dialog.component';
 import { Subscription } from 'rxjs';
 import { MESSAGES } from '../shared/constants/messages';
+import { LoaderService } from '../services/loader.service';
 @Component({
   selector: 'app-dash-board',
   templateUrl: './dash-board.component.html',
@@ -18,7 +19,6 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
   sidenav!: MatSidenav;
   title = "sample"
   dialogRef!: MatDialogRef<DialogComponent>;
-  isLoader: boolean = false;
   subscriptionObj = new Subscription();
   isSmallScreen: boolean = false;
   currentTheme: string = localStorage.getItem('theme') ?? 'light';
@@ -26,9 +26,11 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
     private observer: BreakpointObserver,
     private route: Router,
     private dialogService: DialogService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private loader: LoaderService
   ) { }
   ngOnInit(): void {
+
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
       localStorage.setItem('theme', 'dark')
     } else {
@@ -57,7 +59,6 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
     });
     this.subscriptionObj.add(this.dialogRef.afterClosed().subscribe((res: any) => {
       if (res) {
-        this.isLoader = true;
         this.renderer.removeClass(document.body, this.currentTheme);
         this.currentTheme = 'light';
         localStorage.clear();

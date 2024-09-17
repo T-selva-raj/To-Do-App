@@ -1,5 +1,5 @@
-module.exports = (db, Sequelize) => {
-    let user = db.define("user", {
+module.exports = (sequelize, Sequelize) => {
+    const User = sequelize.define("user", {
         id: {
             type: Sequelize.INTEGER,
             primaryKey: true,
@@ -14,9 +14,16 @@ module.exports = (db, Sequelize) => {
         password: {
             type: Sequelize.STRING,
             allowNull: false
+        },
+        uid: {
+            type: Sequelize.STRING,
+            allowNull: false
         }
     }, {
         schema: 'user'
     });
-    return user;
-}
+    User.association = (models) => {
+        User.hasMany(models.task, { foreignKey: 'userId' });
+    }
+    return User;
+};

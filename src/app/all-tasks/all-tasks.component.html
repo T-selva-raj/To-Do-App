@@ -1,5 +1,5 @@
-<app-common-header title="All Tasks" style="height: 5%;"></app-common-header>
-<div class="all-task-container" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="space-around none">
+<app-common-header title="All Tasks"></app-common-header>
+<!-- <div class="all-task-container" fxLayout="row wrap" fxLayoutGap="15px" fxLayoutAlign="space-around none">
     <div *ngFor="let item of allTasks;" fxFlex.gt-md="30%" fxFlex.md="45%" fxFlex.sm="100%">
         <div class="task-card" fxLayout="column" fxLayoutAlign="space-around none" fxFlex="100%">
             <h2>{{ item.name }}</h2>
@@ -21,4 +21,30 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+<app-common-list [search]="true" [filter]="true" [columnRef]="columnRef" [columnData]="columnData"
+    (viewClicked)="onView(viewTask)"></app-common-list>
+
+<ng-template #viewTask let-dialogRef="dialogRef">
+    <mat-toolbar mat-dialog-title
+        style="background-color: var(--primary-color) !important;">{{viewData.name}}</mat-toolbar>
+    <mat-dialog-content>
+        <div fxLayout="column" fxLayoutAlign="space-around center">
+            <h4 style="text-align: center;margin-top: 10px;color: #000;">{{viewData.description}}</h4>
+            <h3 style="color: #000;">Priority : {{viewData.priority}}</h3>
+            <h3 style="color: #000;">Due : {{viewData.due}}</h3>
+            <h2 [ngClass]="viewData.status">Status : {{viewData.status}}</h2>
+            <select class="select" [ngClass]="viewData.status" [(ngModel)]="viewData.status"
+                (ngModelChange)="onStatusChange(viewData, $event)">
+                <option value="open">Open</option>
+                <option value="progress">Progress</option>
+                <option value="done">Done</option>
+            </select>
+        </div>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button (click)="onCancel(dialogRef)">Cancel</button>
+        <button mat-raised-button color="primary" (click)="onSave(dialogRef)">Save</button>
+    </mat-dialog-actions>
+</ng-template>

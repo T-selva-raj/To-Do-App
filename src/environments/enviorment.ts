@@ -10,6 +10,6 @@ export const environment = {
         appId: "1:884943927455:web:3ffddbe47f65c600768aaa",
         measurementId: "G-NVKDSPNXPK"
     },
-    server: 'http://localhost:8080/',
+    server: 'http://172.17.0.156:8080/',
     secret_key: 'mykey1234'
 }

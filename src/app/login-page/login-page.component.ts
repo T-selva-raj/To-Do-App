@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { SnackbarService } from '../shared/services/snackbar.service';
 import { SnackType } from '../shared/models/models';
 import { Router } from '@angular/router';
+import { LoaderService } from '../services/loader.service';
 
 @Component({
   selector: 'app-login-page',
@@ -19,7 +20,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private auth: AuthService,
     private snackbar: SnackbarService,
-    private router: Router) {
+    private router: Router,
+    private loader: LoaderService) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[0-9])(?=.*[^a-zA-Z0-9])/)]]
@@ -31,17 +33,19 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   OnSignIn() {
     const formData = this.loginForm.value;
     if (this.loginForm.valid) {
-      this.isLoading = true;
+      this.loader.showLoader();
       this.subscriptionObj.add(
         this.auth.signIn(formData.email, formData.password).subscribe(
           (res: any) => {
-            this.isLoading = false;
-            localStorage.setItem("uuid", res?.user?.uid);
+            this.loader.hideLoader();
+            localStorage.setItem("token", res?.token);
+            console.log(res);
+
             this.snackbar.openSnackBar({ message: "Logged In Successfully..!", snacktype: SnackType.Success, class: 'success' });
-            this.router.navigate(['app/dashboard']);
+            this.router.navigate(['/app/dashboard']);
           },
           (error) => {
-            this.isLoading = false;
+            this.loader.hideLoader();
             this.snackbar.openSnackBar({ message: error?.error, snacktype: SnackType.Error, class: 'error' });
           }
         )
@@ -50,7 +54,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.isLoading = false;
+    this.loader.hideLoader();
     this.subscriptionObj.unsubscribe();
   }
 }

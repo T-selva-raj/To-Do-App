@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private route: Router) { }
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const token = localStorage.getItem('uuid');
+    const token = localStorage.getItem('token');
     if (token) return true;
     else {
       this.route.navigate(['/login']);
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
-    const token = localStorage.getItem('uuid');
+    const token = localStorage.getItem('token');
     // const expiration = localStorage.getItem('tokenExpiration');
 
     // if (token && expiration) {

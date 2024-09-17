@@ -37,6 +37,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 
@@ -47,7 +48,9 @@ import { SharedModule } from './shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { LoaderComponent } from './loader/loader.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CommonListComponent } from './common-list/common-list.component';
+import { HtttpInterceptor } from './services/htttp.interceptor';
 Chart.register(...registerables);
 @NgModule({
   declarations: [
@@ -64,7 +67,8 @@ Chart.register(...registerables);
     ReportComponent,
     ChartComponent,
     ClockComponent,
-    LoaderComponent
+    LoaderComponent,
+    CommonListComponent
   ],
   imports: [
     BrowserModule,
@@ -92,12 +96,17 @@ Chart.register(...registerables);
     MatDialogModule,
     MatSlideToggleModule,
     MatChipsModule,
+    MatPaginatorModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     SharedModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HtttpInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -20,9 +20,8 @@ let sequelize = new Sequelize(
             underscored: true,
         },
         pool: {
-            max: 10,
+            max: 100,
             min: 0,
-            idleTime: 10000,
         },
         dialectOptions: {
             useUTC: true,

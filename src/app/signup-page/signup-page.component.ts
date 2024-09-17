@@ -5,6 +5,7 @@ import { SnackbarService } from '../shared/services/snackbar.service';
 import { SnackType } from '../shared/models/models';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LoaderService } from '../services/loader.service';
 
 
 
@@ -21,7 +22,8 @@ export class SignupPageComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private fb: FormBuilder,
     private snackbar: SnackbarService,
-    private router: Router) {
+    private router: Router,
+    private loader: LoaderService) {
     this.signupForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -41,13 +43,14 @@ export class SignupPageComponent implements OnInit, OnDestroy {
       return;
     }
     if (this.signupForm.valid) {
+      this.loader.showLoader();
       this.subscribtinObj?.add(this.authService.signUp(formData.email, formData.password).subscribe((res: any) => {
-        console.log("res", res);
-
+        this.loader.hideLoader();
         this.snackbar.openSnackBar({ message: "Signup Completed..!", snacktype: SnackType.Success });
         this.router.navigate(['login']);
 
       }, (error: { code: string; }) => {
+        this.loader.hideLoader();
         if (error?.code == "auth/email-already-in-use")
           this.snackbar.openSnackBar({ message: "user already exist", snacktype: SnackType.Error });
         else this.snackbar.openSnackBar({ message: "Internal server Error", snacktype: SnackType.Error });
@@ -55,6 +58,7 @@ export class SignupPageComponent implements OnInit, OnDestroy {
     }
   }
   ngOnDestroy(): void {
+    this.loader.hideLoader();
     this.subscribtinObj?.unsubscribe();
   }
 

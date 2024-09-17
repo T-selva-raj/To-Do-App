@@ -9,7 +9,7 @@ export class LoginAuthGuard implements CanActivate {
   constructor(private router: Router) { }
 
   canActivate(): boolean {
-    const user = localStorage.getItem('uuid');
+    const user = localStorage.getItem('token');
     if (user) {
       this.router.navigate(['app/dashboard']);
       return false;

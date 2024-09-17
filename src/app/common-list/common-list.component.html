@@ -1,0 +1,34 @@
+<div fxLayout="row">
+    <input type=" text" placeholder="search" class="search" *ngIf="search" />
+    <div class="filter" *ngIf="filter">
+        <button mat-icon-button [matMenuTriggerFor]="menu"><i class="bi bi-filter"
+                style="color: var(--primary-font-color); font-size: 25px;"></i></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>1st Week</button>
+            <button mat-menu-item>2nd Week</button>
+        </mat-menu>
+    </div>
+</div>
+<div class="main-div">
+    <ng-container *ngFor="let rows of tableData; ">
+        <div [ngClass]="rows && rows[0] && rows[0].isHeader ? 'tableRowHeader' : 'tableRowData'" class="rows">
+            <ng-container *ngFor="let columns of rows; ">
+                <div [ngClass]="columns.isHeader ? 'headerContents' : 'dataContents'">
+                    <ng-container *ngIf="columns.isAction">
+                        <div class="action-container">
+                            <i class="bi bi-eye-fill" style="color: #067b79 !important;" (click)="onEdit(rows)"></i>
+                            <i class="bi bi-trash" style="color:#EB5353 !important" (click)="onDelete(rows)"></i>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="!columns.isAction">
+                        {{ columns.value }}
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+
+    <mat-paginator class="paginator" [length]="tableCount" [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+        aria-label="Select page" (page)="onPageChanged($event)">
+    </mat-paginator>
+</div>

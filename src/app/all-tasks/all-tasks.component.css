@@ -1,8 +1,9 @@
 .all-task-container {
     width: 100%;
     padding: 20px;
-    height: 68vh;
+    height: 65vh;
     overflow-y: scroll;
+    margin-top: 20px;
 }
 
 
@@ -56,13 +57,31 @@
     background-color: var(--secondary-color);
     border-radius: 16px;
     padding: 4px 8px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
+    align-content: center;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
     font-size: 20px;
-    width: 100px;
+    width: 150px;
 }
 
 option {
     color: black;
+}
+
+.progress,
+.medium {
+    color: #067b79;
+}
+
+.done,
+.low {
+    color: #81B214
+}
+
+.open,
+.high {
+    color: #EB5353
 }

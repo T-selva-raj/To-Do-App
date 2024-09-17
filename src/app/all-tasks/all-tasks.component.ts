@@ -1,19 +1,5 @@
-import { Component } from '@angular/core';
-interface colors {
-  progress: string,
-  done: string,
-  open: string,
-  medium: string,
-  low: string,
-  high: string
-}
-interface Task {
-  name: string;
-  due: string;
-  priority: 'low' | 'medium' | 'high';
-  status: 'open' | 'inProgress' | 'done';
-}
-
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-all-tasks',
@@ -21,50 +7,62 @@ interface Task {
   styleUrls: ['./all-tasks.component.css']
 })
 export class AllTasksComponent {
+  @ViewChild('viewTask') viewTask: TemplateRef<any> | undefined;
 
-  allTasks: Task[] = [
-    { name: "sample1wqwertds", due: "1-1-1111", priority: "high", status: "done" },
-    { name: "sample2", due: "1-1-1111", priority: "medium", status: "open" },
-    { name: "sample3", due: "1-1-1111", priority: "high", status: "done" },
-    { name: "sample4", due: "1-1-1111", priority: "low", status: "done" },
-    { name: "sample5", due: "1-1-1111", priority: "high", status: "done" },
-    { name: "sample6", due: "1-1-1111", priority: "high", status: "done" },
-    { name: "sample7", due: "1-1-1111", priority: "low", status: "done" },
-    { name: "sample8", due: "1-1-1111", priority: "high", status: "done" },
-    { name: "sample9", due: "1-1-1111", priority: "high", status: "done" },
-    { name: "sample10", due: "1-1-1111", priority: "high", status: "done" },
-    { name: "sample11", due: "1-1-1111", priority: "high", status: "open" },
-    { name: "sample1", due: "1-1-1111", priority: "high", status: "open" },
-    { name: "sample2", due: "1-1-1111", priority: "medium", status: "open" },
-    { name: "sample3", due: "1-1-1111", priority: "high", status: "open" },
-    { name: "sample4", due: "1-1-1111", priority: "low", status: "open" },
-    { name: "sample5", due: "1-1-1111", priority: "high", status: "open" },
-    { name: "sample6", due: "1-1-1111", priority: "high", status: "open" },
-    { name: "sample7", due: "1-1-1111", priority: "low", status: "open" },
-    { name: "sample8", due: "1-1-1111", priority: "high", status: "open" },
-    { name: "sample9", due: "1-1-1111", priority: "high", status: "open" },
-    { name: "sample10", due: "1-1-1111", priority: "high", status: "open" },
-    { name: "sample11", due: "1-1-1111", priority: "high", status: "open" }
-  ];
-
-  textColor: colors = {
-    progress: '#7FDBDA',
-    done: "#81B214",
-    open: "#EB5353",
-    medium: "#7FDBDA",
-    low: '#81B214',
-    high: "#EB5353",
+  viewData = {
+    name: "sample",
+    description: "The code snippet provided appears to be a mix of HTML, Angular, and some pseudocode-like syntax. However, there are some inconsistencies that need to be corrected for i",
+    priority: "high",
+    due: "1-1-24",
+    status: 'done'
   };
 
-  getColor(value: string | number | any) {
-    return this.textColor[value as keyof colors] || 'white';
+  columnRef = [
+    { heading: "Task name", column: "name" },
+    { heading: "Dead Line", column: 'due' },
+    { heading: "Created On", column: "createdAt" },
+    { heading: "Priority", column: 'priority' },
+    { heading: "Status", column: 'status' },
+    { heading: 'Actions', type: 'action' }
+  ];
+  columnData = {
+    count: 25,
+    rows: [
+      { name: "sample2", due: "1-1-1111", priority: "med", status: "open", createdAt: "1-2-30" },
+      { name: "sample3", due: "1-1-1111", priority: "high", status: "done", createdAt: "1-2-30" },
+      { name: "sample4", due: "1-1-1111", priority: "low", status: "done", createdAt: "1-2-30" },
+      { name: "sample5", due: "1-1-1111", priority: "high", status: "done", createdAt: "1-2-30" },
+      { name: "sample6", due: "1-1-1111", priority: "high", status: "done", createdAt: "1-2-30" }
+    ]
+  };
+
+  constructor(private dialog: MatDialog) {
 
   }
 
 
 
-  onStatusChange(task: any, event: { target: { value: any; }; }) {
-    task.status = event.target.value;
+  onStatusChange(task: any, event: string) {
+    task.status = event;
+  }
+  onCancel(dialogRef: MatDialogRef<any>): void {
+    dialogRef.close();
+  }
+  onSave(dialogRef: MatDialogRef<any>) {
+    dialogRef.close(this.viewData);
+
+  }
+  onView(templateRef: TemplateRef<any>) {
+
+    const dialogRef = this.dialog.open(templateRef, {
+      width: '450px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+
+    });
   }
 
 }

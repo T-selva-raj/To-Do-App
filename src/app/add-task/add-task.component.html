@@ -4,7 +4,7 @@
         <img src="../../assets/Add tasks.gif" alt="img">
     </div> -->
     <div class="add-task-container" fxFlex="50%" fxFlex.lt-md="85%">
-        <form [formGroup]="taskform" fxLayout="column" fxLayoutGap="5px">
+        <form [formGroup]="taskform" fxLayout="column" fxLayoutGap="5px" (submit)="onSubmit()">
             <mat-form-field appearance="outline">
                 <mat-label>Task Title</mat-label>
                 <input matInput placeholder="Enter task title" required formControlName="taskName">

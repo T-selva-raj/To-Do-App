@@ -1,7 +1,7 @@
 const CryptoJS = require('crypto-js');
 require('../config/config');
 
-const encryptDetails = async (data) => {
+const encryptDetails = (data) => {
     if (data) {
         const text = CryptoJS.AES.encrypt(data.toString(), CONFIG.secret_key).toString();
         return text.replace(/\\/g, '|');
@@ -11,10 +11,14 @@ const encryptDetails = async (data) => {
 }
 module.exports.encryptDetails = encryptDetails;
 
-const decryptDetails = async (data) => {
+const decryptDetails = (data) => {
     if (data) {
+        console.log("data", data);
+
         const bytes = CryptoJS.AES.decrypt(data.toString(), CONFIG.secret_key);
         const result = bytes.toString(CryptoJS.enc.Utf8).replace('|', /\\/g);
+        console.log(result);
+
         return result;
     } else {
         return null;

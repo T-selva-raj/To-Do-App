@@ -7,7 +7,6 @@ import { environment } from '../../environments/enviorment';
 export class CryptoService {
 
   private secretKey = environment.secret_key;
-
   constructor() { }
 
   encryptDetails(data: any): string {
