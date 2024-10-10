@@ -22,6 +22,7 @@ admin.initializeApp({
 models = require("./models");
 var AuthRouter = require('./routes/auth');
 var TaskRouter = require('./routes/task');
+var UserRouter = require('./routes/user');
 
 var app = express();
 require('./middleware/passport')(passport);
@@ -54,13 +55,12 @@ app.use(function (req, res, next) {
   if (req && req.headers && req.headers.authorization) {
     const accessToken = CryptoService.decryptDetails(req.headers.authorization);
     req.headers.authorization = accessToken;
-    console.log(req.headers.authorization);
-
   }
   next();
 });
 app.use('/auth', AuthRouter);
 app.use('/task', TaskRouter);
+app.use('/user', UserRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

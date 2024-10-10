@@ -18,6 +18,21 @@ module.exports = (sequelize, Sequelize) => {
         uid: {
             type: Sequelize.STRING,
             allowNull: false
+        },
+        userName: {
+            type: Sequelize.STRING(20),
+            allowNull: false
+        },
+        profileImage: {
+            type: Sequelize.STRING
+        },
+        taskCompleted: {
+            type: Sequelize.NUMERIC,
+            default: 0
+        },
+        createdAt: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
         }
     }, {
         schema: 'user'

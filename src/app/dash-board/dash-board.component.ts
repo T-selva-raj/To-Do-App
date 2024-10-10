@@ -7,7 +7,6 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../shared/components/dialog/dialog.component';
 import { Subscription } from 'rxjs';
 import { MESSAGES } from '../shared/constants/messages';
-import { LoaderService } from '../services/loader.service';
 @Component({
   selector: 'app-dash-board',
   templateUrl: './dash-board.component.html',
@@ -17,7 +16,7 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  title = "sample"
+  title = "Hello ";
   dialogRef!: MatDialogRef<DialogComponent>;
   subscriptionObj = new Subscription();
   isSmallScreen: boolean = false;
@@ -27,7 +26,6 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
     private route: Router,
     private dialogService: DialogService,
     private renderer: Renderer2,
-    private loader: LoaderService
   ) { }
   ngOnInit(): void {
 

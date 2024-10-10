@@ -1,14 +1,19 @@
-import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { SnackbarService } from '../shared/services/snackbar.service';
+import { LoaderService } from '../services/loader.service';
+import { Subscription } from 'rxjs';
+import { TaskService } from '../services/task.service';
+import { SnackType } from '../shared/models/models';
 
 @Component({
   selector: 'app-all-tasks',
   templateUrl: './all-tasks.component.html',
   styleUrls: ['./all-tasks.component.css']
 })
-export class AllTasksComponent {
+export class AllTasksComponent implements OnInit, OnDestroy {
   @ViewChild('viewTask') viewTask: TemplateRef<any> | undefined;
-
+  resFound = false;
   viewData = {
     name: "sample",
     description: "The code snippet provided appears to be a mix of HTML, Angular, and some pseudocode-like syntax. However, there are some inconsistencies that need to be corrected for i",
@@ -17,29 +22,38 @@ export class AllTasksComponent {
     status: 'done'
   };
 
-  columnRef = [
-    { heading: "Task name", column: "name" },
-    { heading: "Dead Line", column: 'due' },
-    { heading: "Created On", column: "createdAt" },
-    { heading: "Priority", column: 'priority' },
-    { heading: "Status", column: 'status' },
-    { heading: 'Actions', type: 'action' }
-  ];
-  columnData = {
-    count: 25,
-    rows: [
-      { name: "sample2", due: "1-1-1111", priority: "med", status: "open", createdAt: "1-2-30" },
-      { name: "sample3", due: "1-1-1111", priority: "high", status: "done", createdAt: "1-2-30" },
-      { name: "sample4", due: "1-1-1111", priority: "low", status: "done", createdAt: "1-2-30" },
-      { name: "sample5", due: "1-1-1111", priority: "high", status: "done", createdAt: "1-2-30" },
-      { name: "sample6", due: "1-1-1111", priority: "high", status: "done", createdAt: "1-2-30" }
-    ]
-  };
-
-  constructor(private dialog: MatDialog) {
+  columnData!: {
+    count: number,
+    rows: any[]
+  }
+  subscriptionObj = new Subscription();
+  constructor(
+    private dialog: MatDialog,
+    private snackbar: SnackbarService,
+    private loader: LoaderService,
+    private taskService: TaskService
+  ) {
 
   }
 
+  ngOnInit(): void {
+    this.getAllTasks();
+  }
+  getAllTasks(data?: any) {
+    this.loader.showLoader();
+    this.subscriptionObj.add(this.taskService.getAllTasks(data).subscribe({
+      next: (res) => {
+        this.loader.hideLoader();
+        this.resFound = true;
+        this.columnData = res.result;
+        if (this.columnData?.count) this.snackbar.openSnackBar({ message: "Details Fetched Successfully", snacktype: SnackType.Success, class: 'success' });
+      },
+      error: (err) => {
+        this.loader.hideLoader();
+        this.snackbar.openSnackBar({ message: err?.error || err?.message, snacktype: SnackType.Error, class: 'error' });
+      }
+    }))
+  }
 
 
   onStatusChange(task: any, event: string) {
@@ -53,16 +67,32 @@ export class AllTasksComponent {
 
   }
   onView(templateRef: TemplateRef<any>) {
-
     const dialogRef = this.dialog.open(templateRef, {
       width: '450px',
       disableClose: true,
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
-
     });
+  };
+  offsetData(event: any) {
+    this.getAllTasks({ offset: event });
   }
-
+  OnDelete(event: any) {
+    this.loader.showLoader();
+    this.subscriptionObj.add(this.taskService.deleteTask(event?.id).subscribe({
+      next: (res) => {
+        this.loader.hideLoader();
+        this.snackbar.openSnackBar({ message: "Task Deleted Successfully", snacktype: SnackType.Success, class: 'success' });
+        this.getAllTasks();
+      },
+      error: (err) => {
+        this.loader.hideLoader();
+        this.snackbar.openSnackBar({ message: err?.error || err?.message, snacktype: SnackType.Error, class: 'error' });
+      }
+    }))
+  }
+  ngOnDestroy(): void {
+    this.subscriptionObj.unsubscribe();
+  }
 }

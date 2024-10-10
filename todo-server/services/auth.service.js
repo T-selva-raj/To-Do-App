@@ -57,7 +57,7 @@ const createJwt = async (user) => {
             email: user.email,
             id: user.id,
             uid: user.uid
-        }, CONFIG.jwt_encryption, { expiresIn: '1h' });
+        }, CONFIG.jwt_encryption, { expiresIn: '30m' });
         const encryptedToken = CryptoService.encryptDetails(token);
         // if (encryptionError) {
         //     console.error('Error encrypting token:', encryptionError);

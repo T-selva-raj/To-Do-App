@@ -13,12 +13,8 @@ module.exports.encryptDetails = encryptDetails;
 
 const decryptDetails = (data) => {
     if (data) {
-        console.log("data", data);
-
         const bytes = CryptoJS.AES.decrypt(data.toString(), CONFIG.secret_key);
         const result = bytes.toString(CryptoJS.enc.Utf8).replace('|', /\\/g);
-        console.log(result);
-
         return result;
     } else {
         return null;

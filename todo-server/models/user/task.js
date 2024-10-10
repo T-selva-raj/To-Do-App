@@ -23,8 +23,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         status: {
-            type: Sequelize.STRING(10),
-            allowNull: false
+            type: Sequelize.ENUM('open', 'inprogress', 'done'),
+            defaultValue: 'open'
         },
         createdAt: {
             type: Sequelize.DATE,
@@ -34,10 +34,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW,
         },
-        // userId: {
-        //     type: Sequelize.NUMERIC,
-        //     allowNull: false
-        // }
+        isDeleted: {
+            type: Sequelize.BOOLEAN,
+            default: false
+        }
+
     }, {
         schema: 'user'
     });

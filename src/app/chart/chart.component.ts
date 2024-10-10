@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -9,6 +9,7 @@ import { Chart } from 'chart.js';
 export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
   private chart!: Chart;
   @ViewChild('MyChart') myChart!: ElementRef<HTMLCanvasElement>;
+  @Input('chartData') chartData: number[] = [0, 0, 0, 0, 0, 0, 0];
   axisColor: string = 'rgba(255,2555,255,0.3)';
   constructor() { }
 
@@ -16,12 +17,13 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
+    console.log("chart..", this.chartData);
+
     this.createChart();
   }
   createChart(): void {
     if (this.chart) {
       this.chart.destroy();
-      console.log("Existing chart destroyed before creating a new one");
     }
 
     const canvas = this.myChart.nativeElement;
@@ -33,7 +35,7 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
           labels: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
           datasets: [{
             label: 'Tasks Completed',
-            data: [0, 8, 5, 7, 3, 2, 1],
+            data: this.chartData,
             borderColor: '#ffd740',
             backgroundColor: '#ffd740',
             borderWidth: 2,

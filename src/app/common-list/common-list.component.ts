@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { DialogService } from '../shared/services/dialog.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from '../shared/components/dialog/dialog.component';
+import { MESSAGES } from '../shared/constants/messages';
+import { Subscription } from 'rxjs';
 
 interface ColumnRef {
   heading: string;
@@ -22,52 +27,46 @@ interface TableData {
   templateUrl: './common-list.component.html',
   styleUrls: ['./common-list.component.css']
 })
-export class CommonListComponent implements OnInit {
+export class CommonListComponent implements OnInit, AfterViewInit, OnChanges {
 
-  @Input() columnRef: ColumnRef[] = [];
-  @Input() columnData!: ColumnData;
   @Input() search = false;
   @Input() filter = false;
-  @Input() actions!: any;
   @Output() viewClicked = new EventEmitter<any>();
   @Output() deleteClicked = new EventEmitter<any>();
-  tableData: TableData[][] = [];
-  tableCount!: number;
+  @Input() displayedColumns: string[] = ['Task Name', 'Dead Line', 'Priority', 'Status', 'Actions'];
+  @Input() ELEMENT_DATA!: any;
+  @Output() offset = new EventEmitter<number>();
+  dialogRef!: MatDialogRef<DialogComponent>;
+  subscriptionObj = new Subscription();
+  dataSource!: any[];
+  tableCount: number = 100;
+  nodata = false
 
-  constructor() {
+  constructor(
+    private dialogService: DialogService
 
-  }
+  ) { }
 
   ngOnInit() {
-    this.pushHeader();
-    this.pushData();
+
+  }
+  ngOnChanges(): void {
+    this.dataSource = this.ELEMENT_DATA?.rows;
+    this.tableCount = this.ELEMENT_DATA?.count;
+    if (!this.dataSource?.length) this.nodata = true;
+  }
+  ngAfterViewInit(): void {
+    this.dataSource = this.ELEMENT_DATA?.rows;
+    this.tableCount = this.ELEMENT_DATA?.count;
+    if (!this.dataSource?.length) this.nodata = true;
   }
 
-  pushHeader() {
-    const headerArray: TableData[] = this.columnRef.map(item => ({
-      value: item.heading,
-      isHeader: true
-    }));
-    this.tableData.push(headerArray);
-  }
 
-  pushData() {
-    this.tableCount = this.columnData?.count ?? 0;
-    const dataRows: TableData[][] = this.columnData.rows.map(row =>
-      this.columnRef.map(ref => {
-        if (ref.type === 'action') {
-          return { value: '', isHeader: false, isAction: true }; // For action columns
-        } else {
-          return { value: row[ref.column || ''] || '', isHeader: false };
-        }
-      })
-    );
-    this.tableData.push(...dataRows);
-  }
 
   onPageChanged(event: any) {
     console.log(event);
-    // Handle pagination here
+    const offset = event?.pageIndex * event?.pageSize;
+    this.offset.emit(offset);
   }
 
   onEdit(row: any) {
@@ -76,7 +75,14 @@ export class CommonListComponent implements OnInit {
   }
 
   onDelete(row: any) {
-    console.log('Delete clicked', row);
-    this.deleteClicked.emit(row);
+    this.dialogRef = this.dialogService.openDialog({
+      title: "Alert",
+      message: MESSAGES.DELETE_CONFIRMATION
+    });
+    this.subscriptionObj.add(this.dialogRef.afterClosed().subscribe((res: any) => {
+      if (res) {
+        this.deleteClicked.emit(row);
+      }
+    }));
   }
 }

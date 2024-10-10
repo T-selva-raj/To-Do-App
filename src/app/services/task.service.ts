@@ -11,8 +11,19 @@ export class TaskService {
   constructor(private http: HttpService) { }
 
   createTask(taskData: any): Observable<any> {
-    console.log(taskData);
-
     return this.http.postMethod(ROUTES.CREATE_TASK, taskData);
+  }
+
+  getDashBoardDetails(): Observable<any> {
+    return this.http.getMethod(ROUTES.DASHBOARD);
+  }
+  getAllTasks(queryParams?: any): Observable<any> {
+    console.log(queryParams);
+
+    return this.http.getMethod(ROUTES.CREATE_TASK, queryParams);
+  }
+
+  deleteTask(taskId: number): Observable<any> {
+    return this.http.deleteMethod(ROUTES.CREATE_TASK, taskId)
   }
 }

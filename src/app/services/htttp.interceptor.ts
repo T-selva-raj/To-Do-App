@@ -40,6 +40,11 @@ export class HtttpInterceptor implements HttpInterceptor {
     }
   }
   handleErrorResponse(error: HttpErrorResponse): Observable<never> {
+    if (error instanceof HttpErrorResponse && error.status == 401) {
+      localStorage.clear();
+      this.router.navigate(['/login']);
+      return throwError(() => error);
+    }
     if (error instanceof HttpErrorResponse && error.status !== 400 || error.status !== 200) {
       this.snackbar.openSnackBar({ message: "something went wrong !", snacktype: SnackType.Error, class: 'error' })
       // localStorage.clear();
