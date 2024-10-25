@@ -15,11 +15,12 @@ export class AllTasksComponent implements OnInit, OnDestroy {
   @ViewChild('viewTask') viewTask: TemplateRef<any> | undefined;
   resFound = false;
   viewData = {
-    name: "sample",
+    taskName: "sample",
     description: "The code snippet provided appears to be a mix of HTML, Angular, and some pseudocode-like syntax. However, there are some inconsistencies that need to be corrected for i",
     priority: "high",
     due: "1-1-24",
-    status: 'done'
+    status: 'done',
+    isView: true
   };
 
   columnData!: {
@@ -66,7 +67,9 @@ export class AllTasksComponent implements OnInit, OnDestroy {
     dialogRef.close(this.viewData);
 
   }
-  onView(templateRef: TemplateRef<any>) {
+  onView(templateRef: TemplateRef<any>, data: any) {
+    this.viewData = data;
+    this.viewData.isView = true;
     const dialogRef = this.dialog.open(templateRef, {
       width: '450px',
       disableClose: true,

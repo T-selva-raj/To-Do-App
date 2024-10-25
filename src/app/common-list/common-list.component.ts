@@ -73,6 +73,10 @@ export class CommonListComponent implements OnInit, AfterViewInit, OnChanges {
     console.log('Edit clicked', row);
     this.viewClicked.emit(row);
   }
+  onView(row: any) {
+    console.log('View clicked', row);
+    this.viewClicked.emit(row);
+  }
 
   onDelete(row: any) {
     this.dialogRef = this.dialogService.openDialog({

@@ -32,9 +32,10 @@
             <ng-container matColumnDef="Actions">
                 <th mat-header-cell *matHeaderCellDef> Actions </th>
                 <td mat-cell *matCellDef="let element">
-                    <div fxLayout="row" style="font-size:20px" fxLayoutAlign="space-arounds center">
-                        <i class="bi bi-eye-fill" style="color: rgb(8, 126, 126);" fxFlex="30%"></i>
-                        <i class="bi bi-pencil-square" style="color:green" fxFlex="30%"></i>
+                    <div fxLayout="row" style="font-size:20px">
+                        <i class="bi bi-eye-fill" style="color: rgb(8, 126, 126);" fxFlex="30%"
+                            (click)="onView(element)"></i>
+                        <i class="bi bi-pencil-square" style="color:green" fxFlex="30%" (click)="onEdit(element)"></i>
                         <i class="bi bi-trash" style="color: red;" fxFlex="30%" (click)="onDelete(element)"></i>
                     </div>
                 </td>

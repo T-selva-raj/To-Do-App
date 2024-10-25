@@ -32,20 +32,12 @@ export class HttpService {
   }
   handleError(error: HttpErrorResponse) {
     if (error.status == 401) {
-      // localStorage.clear();
-      // this.snackbar.openSnackBar({ message: "Session expired..!", snacktype: SnackType.Error, class: 'error' });
-      // this.router.navigate(['/login']);
-      return throwError(() => error);
-
+      return throwError(() => error.message);
     }
-
-    let errorMessage = 'Unknown error!';
-    // if (error.error instanceof ErrorEvent) {
-    //   errorMessage = `Error: ${error.error.message}`;
-    // } else {
-    //   errorMessage = error.error;
-    // }
-    return throwError(() => errorMessage);
+    else {
+      let errorMessage = 'Unknown error!';
+      return throwError(() => errorMessage);
+    }
   }
 
 }

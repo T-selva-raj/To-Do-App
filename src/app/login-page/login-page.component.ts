@@ -39,8 +39,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           (res: any) => {
             this.loader.hideLoader();
             localStorage.setItem("token", res?.token);
-            console.log(res);
-
             this.snackbar.openSnackBar({ message: "Logged In Successfully..!", snacktype: SnackType.Success, class: 'success' });
             this.router.navigate(['/app/dashboard']);
           },

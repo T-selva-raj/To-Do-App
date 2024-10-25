@@ -17,7 +17,6 @@ export class AuthService {
     return this.httpService.postMethod(ROUTES.REGISTER, data);
   }
   signIn(email: string, password: string): Observable<any> {
-    console.log(email, password);
     email = this.crypto.encryptDetails(email);
     password = this.crypto.encryptDetails(password);
     const data = { email: email, password: password };

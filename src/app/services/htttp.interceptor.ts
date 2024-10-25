@@ -50,6 +50,6 @@ export class HtttpInterceptor implements HttpInterceptor {
       // localStorage.clear();
       // this.router.navigate(['/login']);
     }
-    return throwError(() => new Error("something went wrong !"));
+    return throwError(() => new Error(error.message));
   }
 }
