@@ -1,52 +1,94 @@
+<!-- Search & Filter Section -->
 <div fxLayout="row" fxLayoutAlign="end center" fxLayoutAlign.lt-md="space-around center" style="width:95%">
-    <input type=" text" placeholder="search" class="search" *ngIf="search" fxFlex="25%" />
+    <input type="text" placeholder="search" class="search" *ngIf="search" fxFlex="25%" [(ngModel)]="searchData"
+        (ngModelChange)="onSearch(searchData)" />
     <div class="filter" *ngIf="filter">
-        <button mat-icon-button [matMenuTriggerFor]="menu"><i class="bi bi-filter"
-                style="color: var(--primary-font-color); font-size: 25px;"></i></button>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <i class="bi bi-filter" style="color: var(--primary-font-color); font-size: 25px;"></i>
+        </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>1st Week</button>
-            <button mat-menu-item>2nd Week</button>
+            <button mat-menu-item (click)="onMenuClick('All')">All</button>
+            <button mat-menu-item (click)="onMenuClick('open')">Open</button>
+            <button mat-menu-item (click)="onMenuClick('progress')">Progress</button>
+            <button mat-menu-item (click)="onMenuClick('done')">Done</button>
         </mat-menu>
     </div>
 </div>
-<br>
 <div class="main-div" fxLayout="column" fxLayoutAlign="center stretch">
-    <div *ngIf="!nodata" fxHide.lt-md fxFlex="80%">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z4">
-            <ng-container matColumnDef="Task Name">
-                <th mat-header-cell *matHeaderCellDef> Task Name </th>
-                <td mat-cell *matCellDef="let element"> {{element?.taskName}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Dead Line">
-                <th mat-header-cell *matHeaderCellDef> Dead Line </th>
-                <td mat-cell *matCellDef="let element"> {{element?.due | date: 'dd/MM/yyyy'}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Priority">
-                <th mat-header-cell *matHeaderCellDef> Priority </th>
-                <td mat-cell *matCellDef="let element"> {{element?.priority}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Status">
-                <th mat-header-cell *matHeaderCellDef> Status </th>
-                <td mat-cell *matCellDef="let element"> {{element?.status}} </td>
-            </ng-container>
-            <ng-container matColumnDef="Actions">
-                <th mat-header-cell *matHeaderCellDef> Actions </th>
-                <td mat-cell *matCellDef="let element">
-                    <div fxLayout="row" style="font-size:20px">
-                        <i class="bi bi-eye-fill" style="color: rgb(8, 126, 126);" fxFlex="30%"
-                            (click)="onView(element)"></i>
-                        <i class="bi bi-pencil-square" style="color:green" fxFlex="30%" (click)="onEdit(element)"></i>
-                        <i class="bi bi-trash" style="color: red;" fxFlex="30%" (click)="onDelete(element)"></i>
-                    </div>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+    <ng-container>
+        <div *ngIf="!nodata" fxFlex="80%" fxHide.lt-md>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z4">
+                <ng-container matColumnDef="Task Name">
+                    <th mat-header-cell *matHeaderCellDef> Task Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.taskName}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Dead Line">
+                    <th mat-header-cell *matHeaderCellDef> Dead Line </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.due | date: 'dd/MM/yyyy'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Priority">
+                    <th mat-header-cell *matHeaderCellDef> Priority </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.priority}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.status}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div fxLayout="row" style="font-size:20px">
+                            <i class="bi bi-eye-fill" style="color: rgb(8, 126, 126);" fxFlex="30%"
+                                (click)="onView(element)"></i>
+                            <i class="bi bi-pencil-square" style="color:green" fxFlex="30%"
+                                (click)="onEdit(element)"></i>
+                            <i class="bi bi-trash" style="color: red;" fxFlex="30%" (click)="onDelete(element)"></i>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+        <div *ngIf="!nodata" fxFlex="60%" fxHide fxShow.lt-md class="card-container">
+            <mat-card *ngFor="let element of dataSource" class="task-card">
+                <mat-card-header>
+                    <mat-card-title>
+                        <h1>{{ element?.taskName }}</h1>
+                    </mat-card-title>
+                    <mat-card-subtitle style="display: flex;justify-content: center;align-items: center;">
+                        <h2>Due:&nbsp;&nbsp;</h2>
+                        <p>{{ element?.due | date: 'dd/MM/yyyy' }}</p>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p><strong>Priority:</strong> {{ element?.priority }}</p>
+                    <p>
+                        <strong>Status:&nbsp;&nbsp;</strong><span
+                            [ngStyle]="{color: element.status === 'done' ? 'green' : (element.status === 'progress' ? 'rgb(8, 126, 126)' : 'red')}">{{
+                            element?.status }}</span>
+
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-icon-button (click)="onView(element)">
+                        <i class="bi bi-eye-fill" style="color: rgb(8, 126, 126);"></i>
+                    </button>
+                    <button mat-icon-button (click)="onEdit(element)">
+                        <i class="bi bi-pencil-square" style="color:green"></i>
+                    </button>
+                    <button mat-icon-button (click)="onDelete(element)">
+                        <i class="bi bi-trash" style="color: red;"></i>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
         <mat-paginator class="paginator" [length]="tableCount" [pageSize]="5" aria-label="Select page"
             (page)="onPageChanged($event)">
         </mat-paginator>
-    </div>
+    </ng-container>
+    <!-- No Data Display -->
     <div class="no-data" *ngIf="nodata">
         <img src="../../assets/nodata.png" alt="no-data" width="30%" height="30%">
     </div>

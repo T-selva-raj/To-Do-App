@@ -15,6 +15,7 @@ module.exports.profileData = profileData;
 
 const editProfile = async (req, res) => {
     try {
+        if (req?.file?.firebaseUrl) req.body.profileImage = req.file.firebaseUrl;
         const [profileErr, profileData] = await to(userService.editProfile(req.body, req.user.id));
         if (profileErr) throw new Error(profileErr.message);
         res.status(200).json({ result: profileData, message: 'Profile updated successfully' });

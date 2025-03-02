@@ -3,32 +3,47 @@ const bcrypt = require('bcrypt');
 const CryptoService = require('./crypto.service');
 const User = require('../models').user;
 const jwt = require('jsonwebtoken');
-const register = async (email, password) => {
+const register = async (email, password, userName) => {
     try {
         email = await CryptoService.decryptDetails(email);
         password = await CryptoService.decryptDetails(password);
+
+        const existingUser = await User.findOne({ where: { email } });
+        if (existingUser) {
+            throw new Error('Email already registered');
+        }
+        const [error, userRecord] = await to(admin.auth().createUser({ email, password }));
+        if (error) {
+            if (error.code === 'auth/email-already-in-use') {
+                throw new Error('Email already registered');
+            }
+            console.error('Firebase Error:', error);
+            throw new Error(error.message || 'User creation failed in Firebase');
+        }
+
+        if (!userRecord) {
+            throw new Error("User record is undefined after Firebase creation");
+        }
         const hashedPassword = await bcrypt.hash(password, 10);
-        const [error, userRecord] = await to(admin.auth().createUser({
+        const [dbError, user] = await to(User.create({
+            userName,
             email,
             password: hashedPassword,
+            uid: userRecord.uid
         }));
-        if (error) {
-            console.error('Error creating user:', error);
-            throw new Error(error.message);
-        }
-        if (userRecord) {
-            const hashedPassword = await bcrypt.hash(password, 10);
-            const user = await User.create({
-                email: email,
-                password: hashedPassword,
-                uid: userRecord.uid
-            });
+
+        if (dbError) {
+            await admin.auth().deleteUser(userRecord.uid);
+            console.error("DB Error:", dbError);
+            throw new Error('Failed to create user account');
         }
         return userRecord;
     } catch (error) {
-        throw new Error(error.message);
+        console.error("Register Error:", error);
+        return TE(error);
     }
 };
+
 
 const login = async (email, password) => {
     try {
@@ -37,17 +52,17 @@ const login = async (email, password) => {
         const [fetchError, userRecord] = await to(admin.auth().getUserByEmail(email));
         if (fetchError) {
             console.error('Error fetching user:', fetchError);
-            throw new Error(fetchError.message);
+            return TE(fetchError.message);
         }
         const user = await User.findOne({ where: { email: userRecord.email }, raw: true });
-        if (!user) throw new Error('User not found');
+        if (!user) return TE('User not found');
         const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) throw new Error('Invalid password');
-        const [jwtError, jwtToken] = await to(createJwt({ email: user.email, uid: user.uid, id: user.id }));
-        if (jwtError) throw new Error(jwtError.message);
-        return jwtToken;
+        if (!isPasswordValid) return TE('Invalid password');
+        const [jwtError, jwtToken] = await to(createJwt({ userName: user.userName, email: user.email, uid: user.uid, id: user.id }));
+        if (jwtError) return TE(jwtError.message);
+        return { jwtToken, userName: user.userName };
     } catch (error) {
-        throw new Error(error.message);
+        return TE(error.message);
     }
 };
 
@@ -56,12 +71,13 @@ const createJwt = async (user) => {
         const token = 'Bearer ' + jwt.sign({
             email: user.email,
             id: user.id,
-            uid: user.uid
+            uid: user.uid,
+            userName: user.userName
         }, CONFIG.jwt_encryption, { expiresIn: '30m' });
         const encryptedToken = CryptoService.encryptDetails(token);
         // if (encryptionError) {
         //     console.error('Error encrypting token:', encryptionError);
-        //     throw new Error(encryptionError.message);
+        //    return TE(encryptionError.message);
         // }
         return encryptedToken;
     } catch (error) {
@@ -78,7 +94,7 @@ const verifyIdToken = async (idToken) => {
         return customToken;
     } catch (error) {
         console.error('Error verifying ID token:', error);
-        throw new Error(error.message);
+        return TE(error.message);
     }
 };
 

@@ -21,7 +21,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private auth: AuthService,
     private snackbar: SnackbarService,
     private router: Router,
-    private loader: LoaderService) {
+    private loader: LoaderService,
+  ) {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', [Validators.required, Validators.pattern(/^(?=.*[0-9])(?=.*[^a-zA-Z0-9])/)]]
@@ -38,7 +39,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.auth.signIn(formData.email, formData.password).subscribe(
           (res: any) => {
             this.loader.hideLoader();
-            localStorage.setItem("token", res?.token);
+            localStorage.setItem("token", res?.token?.jwtToken);
             this.snackbar.openSnackBar({ message: "Logged In Successfully..!", snacktype: SnackType.Success, class: 'success' });
             this.router.navigate(['/app/dashboard']);
           },

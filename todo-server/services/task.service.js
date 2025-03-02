@@ -1,5 +1,6 @@
 const task = require('../models').task;
-
+const UserService = require('./user.service');
+const { Op } = require('sequelize');
 
 const createTask = async (taskData) => {
     try {
@@ -39,10 +40,11 @@ module.exports.deleteTask = deleteTask;
 
 const updateTask = async (data, taskId, userId) => {
     try {
+        data = { ...data, modifiedAt: new Date() };
         const [error, updated] = await to(task.update(data, {
             where: {
-                usedId: userId,
-                id: taskId
+                userId: userId,
+                id: taskId,
             }
         }));
         if (error) throw new Error(error.message);
@@ -77,17 +79,10 @@ const getAllTasks = async (whereCondition, limit, offset) => {
             limit: limit,
             offset: offset,
             raw: true,
-            attributes: ['id', 'taskName', 'due', 'priority', 'status', 'createdAt']
+            attributes: ['id', 'taskName', 'due', 'priority', 'status', 'createdAt'],
+            order: [['taskName', 'ASC']]
         }));
         if (error) throw new Error(error.message);
-        // taskData.rows = taskData.rows.map(ele => ({
-        //     ...ele,
-        //     createdAt: new Date(ele.createdAt),
-        //     due: new Date(ele.due)
-        // }));
-        // console.log(taskData.rows);
-
-        // taskData.count = taskData.rows.map(ele => !ele.isDeleted).length;
         return taskData;
     } catch (e) {
         throw new Error(e.message);
@@ -109,13 +104,17 @@ const getDashBoardDetails = async (userId) => {
         const thisWeek = filterTasksForCurrentWeek(tasks?.rows);
         const today = filterTasksDueToday(tasks?.rows);
         const highCount = tasks?.rows.filter(task => task.priority == 'High')?.length;
+        const chartData = await getGraphData(userId);
+        const [usererr, user] = await to(UserService.getUserProfileData(userId));
+        if (usererr) console.log(usererr);
         return {
             total: tasks?.count ?? 0,
             thisWeekCount: thisWeek ?? 0,
             todayCount: today?.todayCount ?? 0,
             todayCompleted: today?.todayCompleted ?? 0,
             highCount: highCount,
-            thisWeek: getCompletedTaskCount(tasks?.rows)
+            // thisWeek: getCompletedTaskCount(tasks?.rows),
+            thisWeek: chartData
         };
     } catch (error) {
         throw new Error(error.message);
@@ -141,12 +140,10 @@ function filterTasksDueToday(tasks) {
         const taskDueDate = new Date(task.due).toDateString();
         return taskDueDate === today;
     })?.length;
-
     const todayCompleted = tasks.filter(task => {
-        const taskDueDate = new Date(task.due).toDateString();
+        const taskDueDate = new Date(task.modifiedAt).toDateString();
         return taskDueDate === today && task.status == 'done';
     })?.length;
-
     return { todayCompleted: todayCompleted, todayCount: todayCount };
 }
 
@@ -167,4 +164,37 @@ function getCompletedTaskCount(tasks) {
         }
     });
     return taskCounts;
+}
+
+const getGraphData = async (userId) => {
+    try {
+        const startOfWeek = new Date();
+        startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+        startOfWeek.setHours(0, 0, 0, 0);
+
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(endOfWeek.getDate() + 6);
+        endOfWeek.setHours(23, 59, 59, 999);
+
+        const whereCondition = {
+            userId,
+            isDeleted: false,
+            due: {
+                [Op.between]: [startOfWeek, endOfWeek]
+            }
+        };
+        const [err, tasks] = await to(getAllTasks(whereCondition, 1000, 0));
+        if (err) throw new Error(err.message);
+        const completedTasksByDay = [0, 0, 0, 0, 0, 0, 0, 0];
+        if (tasks.rows?.length) {
+            tasks.rows.forEach(task => {
+                const dayIndex = new Date(task.due).getDay();
+                completedTasksByDay[dayIndex]++;
+            });
+        }
+        return completedTasksByDay;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+
 }

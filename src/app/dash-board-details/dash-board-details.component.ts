@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { LoaderService } from '../services/loader.service';
 import { SnackbarService } from '../shared/services/snackbar.service';
 import { SnackType } from '../shared/models/models';
+import { ChartTypeRegistry } from 'chart.js';
 
 
 @Component({
@@ -15,6 +16,7 @@ import { SnackType } from '../shared/models/models';
 export class DashBoardDetailsComponent implements OnInit, OnDestroy {
   DashBoard = "Dashboard";
   subscriptionObj = new Subscription();
+  chartType: keyof ChartTypeRegistry = 'line';
   dashBoardData: {
     highCount: number,
     thisWeek: number[],
@@ -24,7 +26,7 @@ export class DashBoardDetailsComponent implements OnInit, OnDestroy {
     total: number
   } = {
       highCount: 0,
-      thisWeek: [1, 0, 0, 0, 0, 0, 0],
+      thisWeek: [5, 0, 0, 0, 0, 0, 0],
       thisWeekCount: 0,
       todayCompleted: 0,
       todayCount: 0,
@@ -33,12 +35,12 @@ export class DashBoardDetailsComponent implements OnInit, OnDestroy {
   isGraphDataInitalized!: boolean;
 
   firstCards = [
-    { img: Constants.IMAGE_COMMON_LINK.replace('{imgName}', 'life timer.png'), count: 0, name: "Over all " },
-    { img: Constants.IMAGE_COMMON_LINK.replace('{imgName}', 'week timer.png'), count: 0, name: "This Week" }
+    { img: '../../assets/all.png', count: 0, name: "Over all " },
+    { img: '../../assets/week.png', count: 0, name: "This Week" }
   ]
   secondCards = [
-    { img: Constants.IMAGE_COMMON_LINK.replace('{imgName}', 'today.png'), count: 0, name: "High" },
-    { img: Constants.IMAGE_COMMON_LINK.replace('{imgName}', 'tick.png'), count: 0, name: "Today Completed" }
+    { img: '../../assets/high.png', count: 0, name: "High" },
+    { img: '../../assets/done.png', count: 0, name: "Today Completed" }
   ]
   constructor(
     private taskService: TaskService,

@@ -2,11 +2,26 @@ const authService = require('../services/auth.service');
 
 const register = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const userRecord = await authService.register(email, password);
-        res.status(200).json({ message: 'User registered successfully', uid: userRecord.uid });
+        const { email, password, userName } = req.body;
+        const userRecord = await authService.register(email, password, userName);
+        res.status(201).json({
+            success: true,
+            message: 'User registered successfully',
+            uid: userRecord.uid
+        });
     } catch (error) {
-        res.status(400).json({ message: 'Registration failed', error: error.message });
+        console.error('Registration error:', error);
+        if (error.message.includes('already registered') ||
+            error.message.includes('already in use')) {
+            return res.status(409).json({
+                success: false,
+                message: 'Email already registered'
+            });
+        }
+        res.status(400).json({
+            success: false,
+            message: error.message || 'Registration failed'
+        });
     }
 };
 

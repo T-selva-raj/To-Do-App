@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, ChartTypeRegistry } from 'chart.js';
 
 @Component({
   selector: 'app-chart',
@@ -10,6 +10,10 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
   private chart!: Chart;
   @ViewChild('MyChart') myChart!: ElementRef<HTMLCanvasElement>;
   @Input('chartData') chartData: number[] = [0, 0, 0, 0, 0, 0, 0];
+  @Input('labels') labels: string[] = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  @Input('chartType') chartType: keyof ChartTypeRegistry = 'line';
+  @Input('ratio') ratio: number = 2;
+  @Input('max') max: number = 10;
   axisColor: string = 'rgba(255,2555,255,0.3)';
   constructor() { }
 
@@ -17,8 +21,6 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-    console.log("chart..", this.chartData);
-
     this.createChart();
   }
   createChart(): void {
@@ -30,20 +32,19 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
     const ctx = canvas.getContext('2d');
     if (ctx) {
       this.chart = new Chart(ctx, {
-        type: 'line',
+        type: this.chartType,
         data: {
-          labels: ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'],
+          labels: this.labels,
           datasets: [{
             label: 'Tasks Completed',
             data: this.chartData,
             borderColor: '#ffd740',
             backgroundColor: '#ffd740',
-            borderWidth: 2,
-            pointBackgroundColor: '#ffd740'
+            borderWidth: 1
           }]
         },
         options: {
-          aspectRatio: 3,
+          aspectRatio: this.ratio,
           responsive: true,
           maintainAspectRatio: false,
           scales: {
@@ -52,10 +53,10 @@ export class ChartComponent implements OnInit, OnDestroy, AfterViewInit {
               grid: {
                 color: this.axisColor,
               },
-              max: 21,
               ticks: {
-                stepSize: 3
-              }
+                stepSize: 1
+              },
+              max: this.max
             },
             x: {
               grid: {

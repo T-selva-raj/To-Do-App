@@ -59,8 +59,12 @@ const getAllTasks = async (req, res) => {
             userId: req?.user?.id,
             isDeleted: false,
         };
-        if (req?.query?.searchText) condition['taskName'] = { [Op.iLike]: req.query.searchText };
-        if (req?.query?.status) condition['status'] = req.query.status;
+        if (req?.query?.searchText) condition['taskName'] = { [Op.iLike]: `%${req.query.searchText}%` };
+        if (req?.query?.status) {
+            if (req.query.status == 'All') {
+                condition['status'] = { [Op.in]: ['open', 'progress', 'done'] }
+            } else condition['status'] = req.query.status;
+        }
         const [error, deleted] = await to(taskService.getAllTasks(condition, limit, offset));
         if (error) throw new Error(error.message);
         res.status(200).json({ result: deleted, message: 'Task fetch successfully' });

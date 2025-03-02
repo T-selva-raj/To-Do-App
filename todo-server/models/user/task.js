@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         status: {
-            type: Sequelize.ENUM('open', 'inprogress', 'done'),
+            type: Sequelize.ENUM('open', 'progress', 'done'),
             defaultValue: 'open'
         },
         createdAt: {

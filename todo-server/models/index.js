@@ -45,7 +45,6 @@ const schemaCreate = async function () {
     );
     return schemas;
 };
-console.log(CONSTANTS.SCHEMAS);
 CONSTANTS.SCHEMAS.forEach((item) => {
     fs.readdirSync(__dirname + "/" + item)
         .filter((file) => {
@@ -78,7 +77,7 @@ sequelize
     .authenticate()
     .then(() => {
         console.log("Connected to SQL database:", CONFIG.db_name);
-        const shema = db.schemaCreate.then(() => {
+        db.schemaCreate.then(() => {
             db.sequelize.sync().then(async () => {
                 console.log("Database Sync..!");
             });

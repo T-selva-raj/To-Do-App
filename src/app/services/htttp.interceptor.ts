@@ -18,8 +18,6 @@ export class HtttpInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const modifiedRequest = this.setHeader(request);
-    console.log(modifiedRequest);
-
     return next.handle(modifiedRequest).pipe((catchError((err: HttpErrorResponse) => {
       return this.handleErrorResponse(err);
     })));
@@ -40,16 +38,16 @@ export class HtttpInterceptor implements HttpInterceptor {
     }
   }
   handleErrorResponse(error: HttpErrorResponse): Observable<never> {
+    console.log(error);
+
     if (error instanceof HttpErrorResponse && error.status == 401) {
       localStorage.clear();
       this.router.navigate(['/login']);
       return throwError(() => error);
     }
-    if (error instanceof HttpErrorResponse && error.status !== 400 || error.status !== 200) {
-      this.snackbar.openSnackBar({ message: "something went wrong !", snacktype: SnackType.Error, class: 'error' })
-      // localStorage.clear();
-      // this.router.navigate(['/login']);
+    if (error instanceof HttpErrorResponse && error.status !== 400) {
+      return throwError(() => new Error("something went wrong!"));
     }
-    return throwError(() => new Error(error.message));
+    return throwError(() => error);
   }
 }

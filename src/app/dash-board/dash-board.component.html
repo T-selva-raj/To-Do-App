@@ -23,8 +23,7 @@
     <mat-sidenav #sidenav="matSidenav" class="shadow">
         <div class="profile">
             <div class="profile-img">
-                <img src="https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg"
-                    alt="profile">
+                <img [src]="profileImage" alt="profile">
             </div>
             <div class="profile-text">
                 <h2 style="color: black;">Welcome back..!</h2>
@@ -35,27 +34,30 @@
             <i class="bi bi-house bold-icon"></i>&nbsp;
             <span>Dashboard</span>
         </a>
+
+        <!-- <a mat-button class="menu-button" routerLink="/app/add" (click)="closeNav()">
+            <i class="bi bi-plus-circle bold-icon"></i>&nbsp;
+            <span>Add Task</span>
+        </a> -->
+        <a mat-button class="menu-button" routerLink="/app/all" (click)="closeNav()">
+            <i class="bi bi-list-task"></i>&nbsp;
+            <span>All Tasks</span>
+        </a>
         <a mat-button class="menu-button" routerLink="/app/profile" (click)="closeNav()">
             <i class="bi bi-person bold-icon"></i>&nbsp;
             <span>Profile</span>
         </a>
-        <a mat-button class="menu-button" routerLink="/app/add" (click)="closeNav()">
-            <i class="bi bi-plus-circle bold-icon"></i>&nbsp;
-            <span>Add Task</span>
-        </a>
-        <a mat-button class="menu-button" routerLink="/app/all" (click)="closeNav()">
-            <i class="bi bi-list-task"></i>&nbsp;
-            <span>All Tasks</span>
-        </a><a mat-button class="menu-button" routerLink="/app/report" (click)="closeNav()">
+        <a mat-button class="menu-button" routerLink="/app/report" (click)="closeNav()">
             <i class="bi bi-graph-up"></i>&nbsp;
             <span>Report</span>
-        </a><a mat-button class="menu-button" routerLink="/app/contactus" (click)="closeNav()">
+        </a>
+        <!-- <a mat-button class="menu-button" routerLink="/app/contactus" (click)="closeNav()">
             <i class="bi bi-telephone"></i>&nbsp;
             <span>Contact us</span>
-        </a>
+        </a> -->
         <mat-divider></mat-divider>
         <small style="color: black;">
-            copyright @ 2024 <i>Selvaraj T</i>
+            {{copyright}} <i>Selvaraj T</i>
         </small>
 
     </mat-sidenav>

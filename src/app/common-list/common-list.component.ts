@@ -32,16 +32,19 @@ export class CommonListComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() search = false;
   @Input() filter = false;
   @Output() viewClicked = new EventEmitter<any>();
+  @Output() editClicked = new EventEmitter<any>();
   @Output() deleteClicked = new EventEmitter<any>();
+  @Output() filterClicked = new EventEmitter<any>();
   @Input() displayedColumns: string[] = ['Task Name', 'Dead Line', 'Priority', 'Status', 'Actions'];
   @Input() ELEMENT_DATA!: any;
   @Output() offset = new EventEmitter<number>();
+  @Output() searchValue = new EventEmitter<string>();
   dialogRef!: MatDialogRef<DialogComponent>;
   subscriptionObj = new Subscription();
   dataSource!: any[];
   tableCount: number = 100;
   nodata = false
-
+  searchData = '';
   constructor(
     private dialogService: DialogService
 
@@ -54,6 +57,7 @@ export class CommonListComponent implements OnInit, AfterViewInit, OnChanges {
     this.dataSource = this.ELEMENT_DATA?.rows;
     this.tableCount = this.ELEMENT_DATA?.count;
     if (!this.dataSource?.length) this.nodata = true;
+    else this.nodata = false;
   }
   ngAfterViewInit(): void {
     this.dataSource = this.ELEMENT_DATA?.rows;
@@ -64,17 +68,14 @@ export class CommonListComponent implements OnInit, AfterViewInit, OnChanges {
 
 
   onPageChanged(event: any) {
-    console.log(event);
     const offset = event?.pageIndex * event?.pageSize;
     this.offset.emit(offset);
   }
 
   onEdit(row: any) {
-    console.log('Edit clicked', row);
-    this.viewClicked.emit(row);
+    this.editClicked.emit(row);
   }
   onView(row: any) {
-    console.log('View clicked', row);
     this.viewClicked.emit(row);
   }
 
@@ -88,5 +89,12 @@ export class CommonListComponent implements OnInit, AfterViewInit, OnChanges {
         this.deleteClicked.emit(row);
       }
     }));
+  }
+
+  onMenuClick(status: string) {
+    this.filterClicked.emit({ status: status });
+  }
+  onSearch(value: string) {
+    this.searchValue.emit(value);
   }
 }

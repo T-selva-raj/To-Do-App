@@ -22,7 +22,6 @@ import { ZenFlexLayoutModule } from "zen-flex-layout";
 import { ProfileComponent } from './profile/profile.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { AllTasksComponent } from './all-tasks/all-tasks.component';
-import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ReportComponent } from './report/report.component';
 import { Chart } from 'chart.js';
 import { registerables } from 'chart.js';
@@ -62,7 +61,6 @@ Chart.register(...registerables);
     ProfileComponent,
     AddTaskComponent,
     AllTasksComponent,
-    ContactUsComponent,
     ReportComponent,
     ChartComponent,
     ClockComponent,

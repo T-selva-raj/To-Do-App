@@ -5,17 +5,6 @@ h1 {
     font-weight: bold;
 }
 
-.search {
-    font-size: 15px;
-    height: 25px;
-    width: 20%;
-    outline: none;
-    border-bottom: 2px solid var(--primary-color) !important;
-    background-color: transparent;
-    color: var(--primary-font-color);
-}
-
-.filter {
-    position: absolute;
-    right: 27%;
+button {
+    margin-right: 40px;
 }

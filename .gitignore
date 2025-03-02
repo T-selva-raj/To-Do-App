@@ -9,6 +9,7 @@
 # Node
 /todo-server/node_modules
 /node_modules
+./packagelog.json
 npm-debug.log
 yarn-error.log
 

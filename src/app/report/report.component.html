@@ -1,16 +1,35 @@
-<div style="height: 78vh;">
-    <app-common-header [title]="Report"></app-common-header>
-    <div fxLayout="row" fxLayoutAlign="end none">
-        <button mat-button [matMenuTriggerFor]="menu"><mat-icon
-                style="color: var(--primary-font-color);">more_vert</mat-icon></button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item>1st Week</button>
-            <button mat-menu-item>2nd Week</button>
-            <button mat-menu-item>3rd Week</button>
-            <button mat-menu-item>4th Week</button>
-        </mat-menu>
+<div style="height:auto">
+    <app-common-header [title]="'Report'"></app-common-header>
+    <div fxLayout="row" fxLayoutAlign="end none" style="margin-bottom: 10px;">
+        <mat-form-field appearance="outline">
+            <mat-label>Select Date Range</mat-label>
+            <mat-date-range-input [formGroup]="dateRange" [rangePicker]="picker" [max]="maxDate">
+                <input matStartDate formControlName="start" placeholder="Start Date">
+                <input matEndDate formControlName="end" placeholder="End Date">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
     </div>
-    <div style="height:80%">
-        <app-chart></app-chart>
+
+    <div fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign.gt-md="space-around center"
+        fxLayoutAlign.lt-md="space-between stretch" class="report-container">
+        <div fxFlex="50%" fxLayout="row" fxLayoutAlign="center center">
+            <div fxLayout="column" fxLayoutAlign="space-evenly center" class="report-summary">
+                <h1 class="report-heading"><span class="task-name">Completed Tasks</span><span
+                        class="colon">:</span><span class="task-value">100</span></h1>
+                <h1 class="report-heading"><span class="task-name">Created Tasks</span><span class="colon">:</span><span
+                        class="task-value">100</span></h1>
+                <h1 class="report-heading"><span class="task-name">Open Tasks</span><span class="colon">:</span><span
+                        class="task-value">100</span></h1>
+                <h1 class="report-heading"><span class="task-name">In Progress</span><span class="colon">:</span><span
+                        class="task-value">100</span></h1>
+            </div>
+        </div>
+
+        <div fxFlex="50%" *ngIf="chartData" class="report-chart">
+            <app-chart [chartData]="chartData" chartType="bar" [ratio]="1"></app-chart>
+        </div>
     </div>
+
 </div>

@@ -3,8 +3,9 @@
         <app-clock></app-clock>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-around center" fxFlex="100">
-        <div class="graph-container" fxFlex="45" fxFlex.lt-md="95">
-            <app-chart *ngIf="isGraphDataInitalized" [chartData]="dashBoardData.thisWeek"></app-chart>
+        <div class="graph-container1" fxFlex="45" fxFlex.lt-md="95">
+            <app-chart *ngIf="isGraphDataInitalized" [chartData]="dashBoardData.thisWeek" [chartType]="chartType"
+                [max]="5"></app-chart>
         </div>
         <div class=" graph-container " fxFlex="45" fxHide.lt-md fxLayout="row">
             <div fxFlex="45" fxLayout="column" fxLayoutAlign="center center" class="today-to-do">

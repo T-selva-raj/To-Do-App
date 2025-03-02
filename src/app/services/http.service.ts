@@ -22,6 +22,13 @@ export class HttpService {
       params: queryParams,
     }).pipe(catchError(this.handleError));
   }
+
+  putMethod(url: string, data: any, params?: number): Observable<any> {
+    url = url.replace(/#/g, "%23");
+    url = params ? this.baseUrl + url + `/${params}` : this.baseUrl + url;
+    return this.http.put(url, data,
+    ).pipe(catchError(this.handleError));
+  }
   getMethod(url: string, queryParams?: any): Observable<any> {
     url = url.replace(/#/g, "%23");
     return this.http.get(this.baseUrl + url, { params: queryParams }
@@ -30,14 +37,8 @@ export class HttpService {
   deleteMethod(url: string, params: any): Observable<any> {
     return this.http.delete(this.baseUrl + url + `/${params}`);
   }
-  handleError(error: HttpErrorResponse) {
-    if (error.status == 401) {
-      return throwError(() => error.message);
-    }
-    else {
-      let errorMessage = 'Unknown error!';
-      return throwError(() => errorMessage);
-    }
+  handleError(error: any) {
+    return throwError(error.error);
   }
 
 }

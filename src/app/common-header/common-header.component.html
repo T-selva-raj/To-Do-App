@@ -1,14 +1,9 @@
-<div>
-    <h1>{{title.toUpperCase()}}</h1>
-    <!-- <div fxLayout="row" fxLayoutAlign="none center">
-        <input type=" text" placeholder="search" class="search" *ngIf="search" />
-        <div class="filter" *ngIf="filter">
-            <button mat-icon-button [matMenuTriggerFor]="menu"><i class="bi bi-filter"
-                    style="color: var(--primary-font-color); font-size: 25px;"></i></button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item>1st Week</button>
-                <button mat-menu-item>2nd Week</button>
-            </mat-menu>
-        </div>
-    </div> -->
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <h1>{{ title.toUpperCase() }}</h1>
+    <button mat-stroked-button color="primary" *ngIf="buttonInfo" fxHide.lt-md (click)="buttonClicked()">
+        {{ buttonInfo.text }}
+    </button>
+    <button mat-icon-button *ngIf="buttonInfo" fxHide.gt-md fxShow.lt-md (click)="buttonClicked()">
+        <mat-icon>{{ buttonInfo.icon }}</mat-icon>
+    </button>
 </div>

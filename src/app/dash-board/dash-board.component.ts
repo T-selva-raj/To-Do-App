@@ -7,6 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../shared/components/dialog/dialog.component';
 import { Subscription } from 'rxjs';
 import { MESSAGES } from '../shared/constants/messages';
+import { ProfileService } from '../services/profile.service';
 @Component({
   selector: 'app-dash-board',
   templateUrl: './dash-board.component.html',
@@ -16,16 +17,20 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
 
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
-  title = "Hello ";
+  title = '';
+  profileImage = "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg";
   dialogRef!: MatDialogRef<DialogComponent>;
-  subscriptionObj = new Subscription();
+  subscriptionObj: Subscription = new Subscription();
   isSmallScreen: boolean = false;
   currentTheme: string = localStorage.getItem('theme') ?? 'light';
+  copyright = 'copyright @ 2024';
+
   constructor(
     private observer: BreakpointObserver,
     private route: Router,
     private dialogService: DialogService,
     private renderer: Renderer2,
+    private profileService: ProfileService
   ) { }
   ngOnInit(): void {
 
@@ -35,6 +40,21 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
       localStorage.setItem('theme', 'light')
     }
     this.setTheme();
+    this.subscriptionObj.add(this.profileService.getProfileData().subscribe(
+      (res: any) => {
+        if (res?.result) {
+          this.profileImage = res.result.profileImage ?? this.profileImage;
+          this.profileService.setProfileImage({ profileImage: this.profileImage?.toString() ?? '', userName: res.result.userName });
+        }
+      }, (error: any) => {
+        console.log(error);
+      }));
+    this.subscriptionObj.add(this.profileService.userProfileValue.subscribe(val => {
+      if (val) {
+        this.profileImage = val.profileImage;
+        this.title = 'Welcome ' + val.userName;
+      }
+    }));
   }
 
   ngAfterViewInit() {

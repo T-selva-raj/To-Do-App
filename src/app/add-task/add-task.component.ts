@@ -1,11 +1,14 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../services/task.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LoaderService } from '../services/loader.service';
 import { SnackbarService } from '../shared/services/snackbar.service';
 import { SnackType } from '../shared/models/models';
 import { Router } from '@angular/router';
+import { DialogComponent } from '../shared/components/dialog/dialog.component';
+import { DialogService } from '../shared/services/dialog.service';
+import { MESSAGES } from '../shared/constants/messages';
 
 @Component({
   selector: 'app-add-task',
@@ -20,12 +23,13 @@ export class AddTaskComponent implements OnDestroy {
     private taskService: TaskService,
     private loader: LoaderService,
     private snackbar: SnackbarService,
-    private router: Router) {
+    private router: Router,
+    private dialog: DialogService) {
     this.taskform = this.fb.group({
       taskName: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', [Validators.required, Validators.maxLength(150)]],
       dueDate: ['', [Validators.required]],
-      importance: ['', [Validators.required]],
+      importance: ['High', [Validators.required]],
       status: ['open']
     });
   }
@@ -38,7 +42,32 @@ export class AddTaskComponent implements OnDestroy {
   }
 
   clearForm(value: FormGroup) {
-    value.reset();
+    if (value.dirty) {
+      this.showConfirmationDialog().subscribe((confirmed) => {
+        if (confirmed) {
+          value.reset();
+          this.router.navigate(['/app/all']);
+        }
+      });
+    } else {
+      value.reset();
+      this.router.navigate(['/app/all']);
+    }
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.taskform.dirty) {
+      return this.showConfirmationDialog();
+    }
+    return true;
+  }
+
+  private showConfirmationDialog(): Observable<boolean> {
+    const dialogRef = this.dialog.openDialog({
+      title: "Alert",
+      message: MESSAGES.DEACTIVATE
+    });
+    return dialogRef.afterClosed();
   }
 
   onSubmit() {

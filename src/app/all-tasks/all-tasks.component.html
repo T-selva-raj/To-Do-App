@@ -1,7 +1,7 @@
-<app-common-header title="All Tasks"></app-common-header>
+<app-common-header title="All Tasks" [buttonInfo]="buttonInfo" (buttonClick)="navigateTo($event)"></app-common-header>
 <app-common-list *ngIf="resFound" [search]="true" [filter]="true" [ELEMENT_DATA]="columnData"
-    (viewClicked)="onView(viewTask,$event)" (deleteClicked)="OnDelete($event)"
-    (offset)="offsetData($event)"></app-common-list>
+    (viewClicked)="onView(viewTask,$event)" (deleteClicked)="OnDelete($event)" (editClicked)="onEdit(viewTask,$event)"
+    (offset)="offsetData($event)" (filterClicked)="onFilter($event)" (searchValue)="onSearch($event)"></app-common-list>
 <ng-template #viewTask let-dialogRef="dialogRef">
     <mat-toolbar mat-dialog-title
         style="background-color: var(--primary-color) !important;">{{viewData.taskName}}</mat-toolbar>
@@ -9,20 +9,19 @@
         <div fxLayout="column" fxLayoutAlign="space-around center">
             <h4 style="text-align: center;margin-top: 10px;color: #000;">{{viewData.description}}</h4>
             <h3 style="color: #000;">Priority : {{viewData.priority}}</h3>
-            <h3 style="color: #000;">Due : {{viewData.due}}</h3>
+            <h3 style="color: #000;">Due : {{viewData.due |date: 'MMM d, y'}}</h3>
             <h2 [ngClass]="viewData.status">Status : {{viewData.status}}</h2>
             <select class="select" [ngClass]="viewData.status" [(ngModel)]="viewData.status"
-                [disabled]="viewData.isView" (ngModelChange)="onStatusChange(viewData, $event)">
+                [disabled]="viewData.isView || viewData.status=='done'"
+                (ngModelChange)="onStatusChange(viewData, $event)">
                 <option value="open">Open</option>
                 <option value="progress">Progress</option>
                 <option value="done">Done</option>
             </select>
-
         </div>
-
     </mat-dialog-content>
     <mat-dialog-actions align="end">
         <button mat-button (click)="onCancel(dialogRef)">Cancel</button>
-        <button mat-raised-button color="primary" (click)="onSave(dialogRef)">Save</button>
+        <button mat-raised-button color="primary" [disabled]="viewData.isView" (click)="onSave(dialogRef)">Save</button>
     </mat-dialog-actions>
 </ng-template>

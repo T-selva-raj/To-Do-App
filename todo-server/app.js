@@ -11,11 +11,13 @@ var serviceAccount = require("./firebase.json");
 var CryptoService = require('./services/crypto.service');
 require('dotenv').config();
 const passport = require("passport");
+const cors = require('cors');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: `https://${process.env.FIREBASE_PROJECTID}.firebaseio.com`
+  databaseURL: `https://${process.env.FIREBASE_PROJECTID}.firebaseio.com`,
+  storageBucket: 'test-app-d051b.appspot.com'
 });
-
+bucket = admin.storage().bucket();
 
 
 
@@ -30,7 +32,12 @@ require('./middleware/passport')(passport);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(require('cors')());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'content-type']
+}));
+app.options('*', cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

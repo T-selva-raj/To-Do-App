@@ -15,8 +15,6 @@ export class SnackbarComponent {
    * @param snackBarRef SnackBar Component Close Action
    */
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any, public snackBarRef: MatSnackBarRef<SnackbarComponent>) {
-    console.log(data);
-
   }
   getClass(): string {
     switch (this.data?.type) {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-common-header',
@@ -7,6 +7,14 @@ import { Component, Input } from '@angular/core';
 })
 export class CommonHeaderComponent {
   @Input('title') title = '';
-  @Input('search') search = false;
-  @Input('filter') filter = false;
+  @Input('button') button = false;
+  @Input('buttonInfo') buttonInfo: any;
+  @Output() buttonClick = new EventEmitter<any>();
+
+  constructor() { }
+
+  buttonClicked() {
+    if (this.buttonInfo?.route)
+      this.buttonClick.emit(this.buttonInfo?.route)
+  }
 }

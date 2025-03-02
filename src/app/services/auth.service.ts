@@ -10,10 +10,10 @@ import { CryptoService } from './crypto.service';
 export class AuthService {
   constructor(private httpService: HttpService, private crypto: CryptoService) { }
 
-  signUp(email: string, password: string): Observable<any> {
+  signUp(email: string, password: string, userName: string): Observable<any> {
     email = this.crypto.encryptDetails(email);
     password = this.crypto.encryptDetails(password);
-    let data = { email: email, password: password };
+    let data = { email, password, userName };
     return this.httpService.postMethod(ROUTES.REGISTER, data);
   }
   signIn(email: string, password: string): Observable<any> {

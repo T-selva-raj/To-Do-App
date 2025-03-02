@@ -3,7 +3,7 @@
     <!-- <div fxFlex="50%" style="display: flex;align-items: center;justify-content: center;" fxHide.lt-md>
         <img src="../../assets/Add tasks.gif" alt="img">
     </div> -->
-    <div class="add-task-container" fxFlex="50%" fxFlex.lt-md="85%">
+    <div class="add-task-container" fxFlex="50%" fxFlex.lt-md="90%">
         <form [formGroup]="taskform" fxLayout="column" fxLayoutGap="5px" (submit)="onSubmit()">
             <mat-form-field appearance="outline">
                 <mat-label>Task Title</mat-label>
@@ -38,7 +38,7 @@
                     required</mat-error>
             </mat-form-field>
             <div class="form-actions" fxLayout="row" fxLayoutAlign="space-around center">
-                <button mat-raised-button color="warn" (click)="clearForm(this.taskform)">Clear</button>
+                <button mat-raised-button color="warn" (click)="clearForm(this.taskform)">Back</button>
                 <button mat-raised-button color="primary" type="submit">Add Task</button>
             </div>
         </form>
