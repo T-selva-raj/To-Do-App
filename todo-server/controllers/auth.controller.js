@@ -10,10 +10,9 @@ const register = async (req, res) => {
             uid: userRecord.uid
         });
     } catch (error) {
-        console.error('Registration error:', error);
         if (error.message.includes('already registered') ||
             error.message.includes('already in use')) {
-            return res.status(409).json({
+            return res.status(400).json({
                 success: false,
                 message: 'Email already registered'
             });

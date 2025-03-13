@@ -11,7 +11,7 @@ to = function (promise) {
 
 
 
-TE = (error) => { return new Error(error) }
+TE = (error) => { throw new Error(error) }
 process.on('unhandledRejection', error => {
     console.error('Uncaught Error', pe(error));
 });

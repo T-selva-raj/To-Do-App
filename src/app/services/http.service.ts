@@ -1,18 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, retry, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/enviorment';
-import { Router } from '@angular/router';
-import { SnackType } from '../shared/models/models';
-import { SnackbarService } from '../shared/services/snackbar.service';
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
   private baseUrl = environment.server;
-  constructor(private http: HttpClient,
-    private router: Router,
-    private snackbar: SnackbarService
+  constructor(private http: HttpClient
   ) { }
 
 

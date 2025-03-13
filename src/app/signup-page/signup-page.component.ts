@@ -51,7 +51,7 @@ export class SignupPageComponent implements OnInit, OnDestroy {
               snacktype: SnackType.Success,
               class: 'success'
             });
-            this.router.navigate(['login']);
+            this.router.navigate(['/login']);
           },
           (error: any) => {
             this.loader.hideLoader();

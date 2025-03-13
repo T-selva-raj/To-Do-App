@@ -17,7 +17,6 @@ const register = async (email, password, userName) => {
             if (error.code === 'auth/email-already-in-use') {
                 throw new Error('Email already registered');
             }
-            console.error('Firebase Error:', error);
             throw new Error(error.message || 'User creation failed in Firebase');
         }
 
@@ -34,13 +33,12 @@ const register = async (email, password, userName) => {
 
         if (dbError) {
             await admin.auth().deleteUser(userRecord.uid);
-            console.error("DB Error:", dbError);
             throw new Error('Failed to create user account');
         }
         return userRecord;
     } catch (error) {
         console.error("Register Error:", error);
-        return TE(error);
+        return TE(error.message);
     }
 };
 
@@ -51,7 +49,6 @@ const login = async (email, password) => {
         password = await CryptoService.decryptDetails(password);
         const [fetchError, userRecord] = await to(admin.auth().getUserByEmail(email));
         if (fetchError) {
-            console.error('Error fetching user:', fetchError);
             return TE(fetchError.message);
         }
         const user = await User.findOne({ where: { email: userRecord.email }, raw: true });

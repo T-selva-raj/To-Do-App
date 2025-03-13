@@ -4,9 +4,10 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
+  HttpErrorResponse,
+  HttpResponse
 } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../shared/services/snackbar.service';
 import { SnackType } from '../shared/models/models';
@@ -31,11 +32,8 @@ export class HtttpInterceptor implements HttpInterceptor {
           Authorization: token
         }
       });
-    } else {
-      localStorage.clear();
-      this.router.navigate(['/login']);
-      return request;
     }
+    else return request;
   }
   handleErrorResponse(error: HttpErrorResponse): Observable<never> {
     console.log(error);
