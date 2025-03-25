@@ -70,3 +70,9 @@ mat-card-actions {
     display: flex;
     justify-content: space-between;
 }
+
+table,
+mat-paginator {
+    background-color: transparent !important;
+    color: var(--primary-font-color) !important;
+}

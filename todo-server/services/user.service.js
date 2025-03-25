@@ -1,6 +1,6 @@
 const user = require('../models').user;
 const task = require('../models').task;
-const Sequelize = require('sequelize');
+var quoteOfTheDay = null;
 
 
 const getUserProfileData = async (userId) => {
@@ -17,6 +17,9 @@ const getUserProfileData = async (userId) => {
         const [countErr, count] = await to(task.count({ where: { userId, status: 'done' } }));
         if (countErr) throw new Error(countErr.message);
         profileData['taskCompleted'] = count ?? 0;
+        if (!quoteOfTheDay)
+            await quoteGenerator();
+        else profileData['quote'] = quoteOfTheDay;
         return profileData;
     } catch (error) {
         throw new Error(error.message);
@@ -38,3 +41,18 @@ const editProfile = async (profileData, userId) => {
     }
 }
 module.exports.editProfile = editProfile;
+
+const quoteGenerator = async () => {
+    try {
+        const url = `https://zenquotes.io/api/today`;
+        const response = await fetch(url);
+        if (!response.ok) return TE(`HTTP error! Status: ${response.status}`);
+        const quote = await response.json();
+        if (quote?.length) {
+            quoteOfTheDay = quote[0]?.h ?? null;
+        }
+    } catch (error) {
+        console.log(error.message)
+        return TE(error.message);
+    }
+}

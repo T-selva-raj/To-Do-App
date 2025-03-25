@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/enviorment';
 @Injectable({
@@ -25,8 +25,13 @@ export class HttpService {
     ).pipe(catchError(this.handleError));
   }
   getMethod(url: string, queryParams?: any): Observable<any> {
-    url = url.replace(/#/g, "%23");
-    return this.http.get(this.baseUrl + url, { params: queryParams }
+    let params = new HttpParams();
+    if (queryParams) {
+      Object.keys(queryParams).forEach(key => {
+        params = params.set(key, queryParams[key]);
+      });
+    } url = url.replace(/#/g, "%23");
+    return this.http.get(this.baseUrl + url, { params }
     ).pipe(catchError(this.handleError));
   }
   deleteMethod(url: string, params: any): Observable<any> {

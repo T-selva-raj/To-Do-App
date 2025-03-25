@@ -15,6 +15,8 @@ import { LoaderService } from '../services/loader.service';
 export class SignupPageComponent implements OnInit, OnDestroy {
   signupForm: FormGroup;
   subscribtionObj: Subscription = new Subscription();
+  hidePassword: boolean = true;
+  hideRePassword: boolean = true;
 
   constructor(
     private authService: AuthService,

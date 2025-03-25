@@ -41,4 +41,8 @@ export class TaskService {
   onSearch(value: any) {
     this.searchSubject.next(value);
   }
+
+  getReport(queryParams?: any) {
+    return this.http.getMethod(ROUTES.REPORT, queryParams);
+  }
 }

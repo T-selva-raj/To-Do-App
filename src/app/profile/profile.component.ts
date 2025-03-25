@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   selectedFile: File | null = null;
   subscriptionObj: Subscription = new Subscription();
   taskCompleted: number = 0;
-  profileImage: string | ArrayBuffer | null = "https://t4.ftcdn.net/jpg/03/64/21/11/360_F_364211147_1qgLVxv1Tcq0Ohz3FawUfrtONzz8nq3e.jpg";
+  profileImage: string | ArrayBuffer | null = "";
   @ViewChild('editProfileTemplate') editProfileTemplate?: TemplateRef<any>;
 
   constructor(public dialog: MatDialog,

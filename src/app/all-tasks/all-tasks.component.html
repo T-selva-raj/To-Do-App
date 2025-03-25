@@ -7,9 +7,9 @@
         style="background-color: var(--primary-color) !important;">{{viewData.taskName}}</mat-toolbar>
     <mat-dialog-content>
         <div fxLayout="column" fxLayoutAlign="space-around center">
-            <h4 style="text-align: center;margin-top: 10px;color: #000;">{{viewData.description}}</h4>
-            <h3 style="color: #000;">Priority : {{viewData.priority}}</h3>
-            <h3 style="color: #000;">Due : {{viewData.due |date: 'MMM d, y'}}</h3>
+            <h4 style="text-align: center;margin-top: 10px;color: var(--primary-font-color);">{{viewData.description}}</h4>
+            <h3 style="color: var(--primary-font-color);">Priority : {{viewData.priority}}</h3>
+            <h3 style="color: var(--primary-font-color);">Due : {{viewData.due |date: 'MMM d, y'}}</h3>
             <h2 [ngClass]="viewData.status">Status : {{viewData.status}}</h2>
             <select class="select" [ngClass]="viewData.status" [(ngModel)]="viewData.status"
                 [disabled]="viewData.isView || viewData.status=='done'"

@@ -86,3 +86,15 @@ const getDashBoardDetails = async (req, res) => {
     }
 }
 module.exports.getDashBoardDetails = getDashBoardDetails;
+
+const getTaskReport = async (req, res) => {
+    try {
+        const [err, report] = await to(taskService.getTaskReport(req.user.id, req?.query?.from ?? null, req?.query?.to ?? null));
+        if (err) throw new Error(err.message);
+        res.status(200).json({ result: report, message: "Report  fetched successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ message: "Report fetch failed", error: error.message });
+    }
+}
+module.exports.getTaskReport = getTaskReport;

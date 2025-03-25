@@ -25,20 +25,26 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Password</mat-label>
-                        <input matInput formControlName="password" type="password" required>
+                        <input matInput formControlName="password" [type]="hidePassword?'password':'text'" required>
                         <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
                             Password is required..!
                         </mat-error>
                         <mat-error *ngIf="signupForm.get('password')?.hasError('pattern')">
                             Atleast one number and charecter required..!
                         </mat-error>
+                        <button mat-icon-button matSuffix (click)="hidePassword=!hidePassword" type="button">
+                            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Repeat Password</mat-label>
-                        <input matInput formControlName="repeatPassword" type="password" required>
+                        <input matInput formControlName="repeatPassword" [type]="hideRePassword?'password':'text'" required>
                         <mat-error *ngIf="signupForm.get('repeatPassword')?.hasError('required')">
                             Repeat Password..!
                         </mat-error>
+                        <button mat-icon-button matSuffix (click)="hideRePassword=!hideRePassword" type="button">
+                            <mat-icon>{{ hideRePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
                     </mat-form-field>
                     <mat-error *ngIf="signupForm.hasError('passwordMismatch')">
                         Password Missmatch..!

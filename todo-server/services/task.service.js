@@ -1,7 +1,7 @@
 const task = require('../models').task;
 const UserService = require('./user.service');
 const { Op } = require('sequelize');
-
+const moment = require('moment');
 const createTask = async (taskData) => {
     try {
         const data = {
@@ -13,10 +13,10 @@ const createTask = async (taskData) => {
             userId: 1
         };
         const [error, taskCreate] = await to(task.create(data));
-        if (error) throw new Error(error.message);
+        if (error) return TE(error.message);
         return taskCreate;
     } catch (e) {
-        throw new Error(e.message);
+        return TE(e.message);
     }
 }
 module.exports.createTask = createTask;
@@ -30,10 +30,10 @@ const deleteTask = async (taskId, userId) => {
                 id: taskId
             }
         }));
-        if (error) throw new Error(error.message);
+        if (error) return TE(error.message);
         return deleted;
     } catch (e) {
-        throw new Error(e.message);
+        return TE(e.message);
     }
 }
 module.exports.deleteTask = deleteTask;
@@ -47,10 +47,10 @@ const updateTask = async (data, taskId, userId) => {
                 id: taskId,
             }
         }));
-        if (error) throw new Error(error.message);
+        if (error) return TE(error.message);
         return updated;
     } catch (e) {
-        throw new Error(e.message);
+        return TE(e.message);
     }
 }
 module.exports.updateTask = updateTask;
@@ -64,10 +64,10 @@ const getOneTask = async (taskId, userId) => {
                 id: taskId
             }
         }));
-        if (error) throw new Error(error.message);
+        if (error) return TE(error.message);
         return taskData;
     } catch (e) {
-        throw new Error(e.message);
+        return TE(e.message);
     }
 }
 module.exports.getOneTask = getOneTask;
@@ -82,10 +82,10 @@ const getAllTasks = async (whereCondition, limit, offset) => {
             attributes: ['id', 'taskName', 'due', 'priority', 'status', 'createdAt'],
             order: [['taskName', 'ASC']]
         }));
-        if (error) throw new Error(error.message);
+        if (error) return TE(error.message);
         return taskData;
     } catch (e) {
-        throw new Error(e.message);
+        return TE(e.message);
     }
 }
 module.exports.getAllTasks = getAllTasks;
@@ -100,7 +100,7 @@ const getDashBoardDetails = async (userId) => {
             },
             raw: true
         }));
-        if (error) throw new Error(error.message);
+        if (error) return TE(error.message);
         const thisWeek = filterTasksForCurrentWeek(tasks?.rows);
         const today = filterTasksDueToday(tasks?.rows);
         const highCount = tasks?.rows.filter(task => task.priority == 'High')?.length;
@@ -117,7 +117,7 @@ const getDashBoardDetails = async (userId) => {
             thisWeek: chartData
         };
     } catch (error) {
-        throw new Error(error.message);
+        return TE(error.message);
     }
 }
 module.exports.getDashBoardDetails = getDashBoardDetails;
@@ -184,7 +184,7 @@ const getGraphData = async (userId) => {
             }
         };
         const [err, tasks] = await to(getAllTasks(whereCondition, 1000, 0));
-        if (err) throw new Error(err.message);
+        if (err) return TE(err.message);
         const completedTasksByDay = [0, 0, 0, 0, 0, 0, 0, 0];
         if (tasks.rows?.length) {
             tasks.rows.forEach(task => {
@@ -194,7 +194,40 @@ const getGraphData = async (userId) => {
         }
         return completedTasksByDay;
     } catch (error) {
-        throw new Error(error.message);
+        return TE(error.message);
     }
 
 }
+
+const getTaskReport = async (userId, startDate, endDate) => {
+    try {
+        const condition = { userId }
+        if (startDate && endDate) {
+            condition['createdAt'] = {
+                [Op.between]: [
+                    moment(startDate).startOf('day').toISOString(),
+                    moment(endDate).endOf('day').toISOString()
+                ]
+            };
+
+        }
+        const [err, allTasks] = await to(getAllTasks(condition, 1000, 0));
+        if (err) return TE(err.messsage);
+        return {
+            completed: allTasks?.rows?.filter(t => t.status == 'done').length ?? 0,
+            open: allTasks?.rows?.filter(t => t.status == 'open').length ?? 0,
+            inProgress: allTasks?.rows?.filter(t => t.status == 'inprogress').length ?? 0,
+            created: allTasks?.rows?.length ?? 0,
+            chartData: [
+                allTasks?.rows?.filter(t => t.priority == 'Low')?.length ?? 0,
+                allTasks?.rows?.filter(t => t.priority == 'Medium')?.length ?? 0,
+                allTasks?.rows?.filter(t => t.priority == 'High')?.length ?? 0,
+            ]
+        }
+    } catch (error) {
+        console.log(error);
+
+        return TE(error.message);
+    }
+}
+module.exports.getTaskReport = getTaskReport;

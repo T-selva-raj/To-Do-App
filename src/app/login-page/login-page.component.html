@@ -19,12 +19,15 @@
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>Password</mat-label>
-                        <input matInput type="password" required formControlName="password">
+                        <input matInput [type]="hidePassword?'password':'text'" required formControlName="password">
                         <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is
                             required</mat-error>
                         <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
                             Atleast one number and charecter required..!
                         </mat-error>
+                        <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
+                            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
                     </mat-form-field>
                     <div fxLayout="row" fxLayoutAlign="center start">
                         <button mat-raised-button color="accent">Login</button>

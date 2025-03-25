@@ -23,7 +23,7 @@
 .file-input-label {
     font-weight: bold;
     cursor: pointer;
-    color: var(--primary-font-color);
+    color: rgb(52, 52, 255);
 }
 
 .file-input {

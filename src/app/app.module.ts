@@ -40,8 +40,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { AngularFireModule } from "@angular/fire/compat";
-import { environment } from "../environments/enviorment";
 import { SharedModule } from './shared/shared.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { LoaderComponent } from './loader/loader.component';
@@ -94,7 +92,6 @@ Chart.register(...registerables);
     MatSlideToggleModule,
     MatChipsModule,
     MatPaginatorModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     SharedModule,
     HttpClientModule

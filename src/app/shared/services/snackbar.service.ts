@@ -39,7 +39,7 @@ export class SnackbarService {
         content: property?.icon,
         type: property?.type
       },
-      duration: input.duration ? input.duration : 3000,
+      duration: input.duration ? input.duration : 1500,
       verticalPosition: 'bottom',
       panelClass: input.class ? input.class : 'success'
     });

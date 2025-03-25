@@ -1,9 +1,9 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
     <h1>{{ title.toUpperCase() }}</h1>
-    <button mat-stroked-button color="primary" *ngIf="buttonInfo" fxHide.lt-md (click)="buttonClicked()">
+    <button mat-raised-button color="primary" *ngIf="buttonInfo" fxHide.lt-md (click)="buttonClicked()">
         {{ buttonInfo.text }}
     </button>
-    <button mat-icon-button *ngIf="buttonInfo" fxHide.gt-md fxShow.lt-md (click)="buttonClicked()">
+    <button mat-mini-fab color="primary" *ngIf="buttonInfo" fxHide.gt-md fxShow.lt-md (click)="buttonClicked()">
         <mat-icon>{{ buttonInfo.icon }}</mat-icon>
     </button>
 </div>

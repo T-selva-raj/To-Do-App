@@ -55,36 +55,36 @@
             <mat-card *ngFor="let element of dataSource" class="task-card">
                 <mat-card-header>
                     <mat-card-title>
-                        <h1>{{ element?.taskName }}</h1>
+                        <h1 style=" color: var(--primary-font-color);">{{ element?.taskName }}</h1>
                     </mat-card-title>
                     <mat-card-subtitle style="display: flex;justify-content: center;align-items: center;">
-                        <h2>Due:&nbsp;&nbsp;</h2>
-                        <p>{{ element?.due | date: 'dd/MM/yyyy' }}</p>
+                        <h2 style=" color: var(--primary-font-color);">Due:&nbsp;&nbsp;</h2>
+                        <p style=" color: var(--primary-font-color);">{{ element?.due | date: 'dd/MM/yyyy' }}</p>
                     </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
-                    <p><strong>Priority:</strong> {{ element?.priority }}</p>
+                    <p><strong style=" color: var(--primary-font-color);">Priority:</strong> {{ element?.priority }}</p>
                     <p>
-                        <strong>Status:&nbsp;&nbsp;</strong><span
-                            [ngStyle]="{color: element.status === 'done' ? 'green' : (element.status === 'progress' ? 'rgb(8, 126, 126)' : 'red')}">{{
+                        <strong style=" color: var(--primary-font-color);">Status:&nbsp;&nbsp;</strong><span
+                            [ngStyle]="{color: element.status === 'done' ? 'rgb(42, 237, 42)' : (element.status === 'progress' ? 'rgb(23, 188, 243)' : 'rgb(248, 72, 37)')}">{{
                             element?.status }}</span>
 
                     </p>
                 </mat-card-content>
                 <mat-card-actions>
                     <button mat-icon-button (click)="onView(element)">
-                        <i class="bi bi-eye-fill" style="color: rgb(8, 126, 126);"></i>
+                        <i class="bi bi-eye-fill" style="color: rgb(23, 188, 243);"></i>
                     </button>
                     <button mat-icon-button (click)="onEdit(element)">
-                        <i class="bi bi-pencil-square" style="color:green"></i>
+                        <i class="bi bi-pencil-square" style="color:rgb(42, 237, 42)"></i>
                     </button>
                     <button mat-icon-button (click)="onDelete(element)">
-                        <i class="bi bi-trash" style="color: red;"></i>
+                        <i class="bi bi-trash" style="color: rgb(248, 72, 37);"></i>
                     </button>
                 </mat-card-actions>
             </mat-card>
         </div>
-        <mat-paginator class="paginator" [length]="tableCount" [pageSize]="5" aria-label="Select page"
+        <mat-paginator class="paginator" *ngIf="!nodata" [length]="tableCount" [pageSize]="5" aria-label="Select page"
             (page)="onPageChanged($event)">
         </mat-paginator>
     </ng-container>

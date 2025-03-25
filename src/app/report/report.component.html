@@ -7,28 +7,29 @@
                 <input matStartDate formControlName="start" placeholder="Start Date">
                 <input matEndDate formControlName="end" placeholder="End Date">
             </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="picker" (click)="resetDateRange()"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
         </mat-form-field>
     </div>
 
     <div fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutAlign.gt-md="space-around center"
-        fxLayoutAlign.lt-md="space-between stretch" class="report-container">
-        <div fxFlex="50%" fxLayout="row" fxLayoutAlign="center center">
+        fxLayoutAlign.lt-md="space-between stretch" fxLayoutGap.lt-md="15px" class="report-container">
+        <div fxFlex="50%" fxFlex.lt-md="100%" fxLayout="row" fxLayoutAlign="center center">
             <div fxLayout="column" fxLayoutAlign="space-evenly center" class="report-summary">
                 <h1 class="report-heading"><span class="task-name">Completed Tasks</span><span
-                        class="colon">:</span><span class="task-value">100</span></h1>
+                        class="colon">:</span><span class="task-value">{{taskData.completed}}</span></h1>
                 <h1 class="report-heading"><span class="task-name">Created Tasks</span><span class="colon">:</span><span
-                        class="task-value">100</span></h1>
+                        class="task-value">{{taskData.created}}</span></h1>
                 <h1 class="report-heading"><span class="task-name">Open Tasks</span><span class="colon">:</span><span
-                        class="task-value">100</span></h1>
+                        class="task-value">{{taskData.open}}</span></h1>
                 <h1 class="report-heading"><span class="task-name">In Progress</span><span class="colon">:</span><span
-                        class="task-value">100</span></h1>
+                        class="task-value">{{taskData.inProgress}}</span></h1>
             </div>
         </div>
 
-        <div fxFlex="50%" *ngIf="chartData" class="report-chart">
-            <app-chart [chartData]="chartData" chartType="bar" [ratio]="1"></app-chart>
+        <div fxFlex="50%" fxFlex.lt-md="100%" *ngIf="taskData.chartData.length" class="report-chart">
+            <app-chart [chartData]="taskData.chartData" chartType="pie" [labels]="labels" [ratio]="1"
+                [pieColors]="pieColors"></app-chart>
         </div>
     </div>
 

@@ -16,6 +16,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   subscriptionObj: Subscription = new Subscription();
   isLoading: boolean = false;
+  hidePassword: boolean = true;
+
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
@@ -51,6 +53,11 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       );
     }
   }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+
 
   ngOnDestroy(): void {
     this.loader.hideLoader();
