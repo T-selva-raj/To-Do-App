@@ -5,12 +5,11 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
-  HttpResponse
+
 } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { SnackbarService } from '../shared/services/snackbar.service';
-import { SnackType } from '../shared/models/models';
 
 @Injectable()
 export class HtttpInterceptor implements HttpInterceptor {
@@ -36,8 +35,6 @@ export class HtttpInterceptor implements HttpInterceptor {
     else return request;
   }
   handleErrorResponse(error: HttpErrorResponse): Observable<never> {
-    console.log(error);
-
     if (error instanceof HttpErrorResponse && error.status == 401) {
       localStorage.clear();
       this.router.navigate(['/login']);

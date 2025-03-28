@@ -80,11 +80,10 @@ export class AddTaskComponent implements OnDestroy {
             this.taskform.reset();
             this.snackbar.openSnackBar({ message: "Task added Successfully", snacktype: SnackType.Success, class: 'success' });
             this.router.navigate(['/app/all']);
-            console.log(res);
           }
         }, (error) => {
           this.loader.hideLoader();
-          console.log(error);
+          (error);
 
         })
       )

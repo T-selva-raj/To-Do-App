@@ -46,8 +46,6 @@ export class DashBoardComponent implements AfterViewInit, OnDestroy, OnInit {
           this.profileImage = res.result.profileImage ?? this.profileImage;
           this.profileService.setProfileImage({ profileImage: this.profileImage?.toString() ?? '', userName: res.result.userName });
         }
-      }, (error: any) => {
-        console.log(error);
       }));
     this.subscriptionObj.add(this.profileService.userProfileValue.subscribe(val => {
       if (val) {
